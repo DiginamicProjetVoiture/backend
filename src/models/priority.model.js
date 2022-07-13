@@ -5,7 +5,7 @@ const Priority = function (priority) {
   this.name = priority.name;
 };
 
-Quotation.create = (newPriority, result) => {
+Priority.create = (newPriority, result) => {
   sql.query('INSERT INTO priority SET ?', newPriority, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -17,7 +17,7 @@ Quotation.create = (newPriority, result) => {
   });
 };
 
-Quotation.findById = (priorityId, result) => {
+Priority.findById = (priorityId, result) => {
   sql.query(`SELECT * FROM priority WHERE id = ${priorityId}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -34,7 +34,7 @@ Quotation.findById = (priorityId, result) => {
   });
 };
 
-Quotation.getAll = (result) => {
+Priority.getAll = (result) => {
   sql.query('SELECT * FROM priority', (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -46,7 +46,7 @@ Quotation.getAll = (result) => {
   });
 };
 
-Quotation.updateById = (id, priority, result) => {
+Priority.updateById = (id, priority, result) => {
   sql.query(
     'UPDATE priority SET name = ?, WHERE id = ?',
     [priority.name, id],
@@ -67,7 +67,7 @@ Quotation.updateById = (id, priority, result) => {
   );
 };
 
-Quotation.remove = (id, result) => {
+Priority.remove = (id, result) => {
   sql.query('DELETE FROM priority WHERE id = ?', id, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -84,7 +84,7 @@ Quotation.remove = (id, result) => {
   });
 };
 
-Quotation.removeAll = (result) => {
+Priority.removeAll = (result) => {
   sql.query('DELETE FROM priority', (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -95,4 +95,4 @@ Quotation.removeAll = (result) => {
     result(null, res);
   });
 };
-module.exports = Quotation;
+module.exports = Priority;

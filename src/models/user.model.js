@@ -10,7 +10,7 @@ const User = function (user) {
   this.is_activated = user.is_activated;
 };
 
-Quotation.create = (newUser, result) => {
+User.create = (newUser, result) => {
   sql.query('INSERT INTO user SET ?', newUser, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -22,7 +22,7 @@ Quotation.create = (newUser, result) => {
   });
 };
 
-Quotation.findById = (userId, result) => {
+User.findById = (userId, result) => {
   sql.query(`SELECT user.id, user.lastname, user.firstname, user.email, user.password, user.is_activated, type_user.id AS id_type_user, type_user.name AS name_type_user `+
   `FROM user `+
   `LEFT JOIN type_user ON user.id_type_user = type_user.id ` +
@@ -42,7 +42,7 @@ Quotation.findById = (userId, result) => {
   });
 };
 
-Quotation.getAll = (result) => {
+User.getAll = (result) => {
   sql.query(
     'SELECT user.id, user.lastname, user.firstname, user.email, user.password, user.is_activated, '+
     'type_user.id AS id_type_user, type_user.name AS name_type_user ' +
@@ -60,7 +60,7 @@ Quotation.getAll = (result) => {
   );
 };
 
-Quotation.updateById = (id, user, result) => {
+User.updateById = (id, user, result) => {
   sql.query(
     'UPDATE user SET id_type_user = ?, lastname = ?, fristname = ?, email = ?, password = ?, is_activated = ?, WHERE id = ?',
     [
@@ -89,7 +89,7 @@ Quotation.updateById = (id, user, result) => {
   );
 };
 
-Quotation.remove = (id, result) => {
+User.remove = (id, result) => {
   sql.query('DELETE FROM user WHERE id = ?', id, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -106,7 +106,7 @@ Quotation.remove = (id, result) => {
   });
 };
 
-Quotation.removeAll = (result) => {
+User.removeAll = (result) => {
   sql.query('DELETE FROM user', (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -117,4 +117,4 @@ Quotation.removeAll = (result) => {
     result(null, res);
   });
 };
-module.exports = Quotation;
+module.exports = User;
