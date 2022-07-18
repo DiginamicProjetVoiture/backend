@@ -21,7 +21,7 @@ Stock.create = (newStock, result) => {
 
 Stock.findById = (stockId, result) => {
   sql.query('SELECT stock.id, stock.number_stock, stock.date_update, '+
-  'vehicle.id AS id_vehicle, vehicle.name AS name_vehicle, vehicle.brand as vehicle_brand '+
+  'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand '+
   'FROM stock ' +
   'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id'+
   ` WHERE id = ${stockId}`, (err, res) => {
@@ -42,7 +42,7 @@ Stock.findById = (stockId, result) => {
 
 Stock.getAll = (result) => {
   sql.query('SELECT stock.id, stock.number_stock, stock.date_update, '+
-  'vehicle.id AS id_vehicle, vehicle.name AS name_vehicle, vehicle.brand as vehicle_brand '+
+  'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand '+
   'FROM stock ' +
   'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id', (err, res) => {
     if (err) {

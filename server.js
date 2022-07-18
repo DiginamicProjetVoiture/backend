@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const userController = require('./src/controllers/user.controller.js')
+
 const app = express();
 const port = 5000;
 
@@ -20,7 +22,18 @@ app.all('*', (req, res, next) => {
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
+  // console.log(`users`, userController.findAll());
 })
+
+require("./src/routes/typeUser.routes.js")(app);
+require("./src/routes/user.routes.js")(app);
+require("./src/routes/customer.routes.js")(app);
+require("./src/routes/vehicle.routes.js")(app);
+require("./src/routes/stock.routes.js")(app);
+require("./src/routes/quotation.routes.js")(app);
+require("./src/routes/commandOrder.routes.js")(app);
+require("./src/routes/bill.routes.js")(app);
+// require("./src/routes/user.routes.js")(app);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

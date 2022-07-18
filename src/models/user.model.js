@@ -2,7 +2,9 @@ const sql = require('./db.js');
 
 // constructor
 const User = function (user) {
-  this.id_type_user = user.id_type_user;
+  this.id = user.id;
+  this.type_user = user.type_user;
+  // this.id_type_user = user.id_type_user;
   this.lastname = user.lastname;
   this.firstname = user.firstname;
   this.email = user.email;
@@ -26,7 +28,7 @@ User.findById = (userId, result) => {
   sql.query(`SELECT user.id, user.lastname, user.firstname, user.email, user.password, user.is_activated, type_user.id AS id_type_user, type_user.name AS name_type_user `+
   `FROM user `+
   `LEFT JOIN type_user ON user.id_type_user = type_user.id ` +
-  `WHERE id = ${userId}`, (err, res) => {
+  `WHERE user.id = ${userId}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -55,6 +57,22 @@ User.getAll = (result) => {
         return;
       }
       console.log('user: ', res);
+
+      res.forEach((user, index) => {
+        const typeUser = { id: user.id_type_user, name: user.name_type_user };
+
+        const userG = {
+          id: user.id,
+          type_user: typeUser,
+          lastname: user.lastname,
+          firstname: user.firstname,
+          email: user.email,
+          password: user.password,
+          is_activated: user.is_activated
+        }
+        res[index] = userG;
+      });
+
       result(null, res);
     }
   );
