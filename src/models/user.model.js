@@ -36,6 +36,23 @@ User.findById = (userId, result) => {
     }
     if (res.length) {
       console.log('found user: ', res[0]);
+
+      res.forEach((user, index) => {
+        const typeUser = { id: user.id_type_user, name: user.name_type_user };
+
+        const userG = {
+          id: user.id,
+          type_user: typeUser,
+          lastname: user.lastname,
+          firstname: user.firstname,
+          email: user.email,
+          password: user.password,
+          is_activated: user.is_activated
+        }
+        res[index] = userG;
+      });
+
+
       result(null, res[0]);
       return;
     }

@@ -22,144 +22,165 @@ Quotation.create = (newQuotation, result) => {
 };
 
 Quotation.findById = (quotationId, result) => {
-  sql.query(`SELECT DISTINCT `+
-  `quotation.id AS id_quotation, `+
-  `quotation.id_vehicle AS id_vehicle_quotation, `+
-  `quotation.id_customer AS id_customer_quotation, `+
-  `quotation.is_valid AS _is_validquotation, `+
-  `quotation.date_creation AS date_creation_quotation, `+
-  `quotation.id_user AS id_user_quotation, `+
-  `USER.id AS id_user, `+
-  `USER.id_type_user AS id_type_user_user, `+
-  `USER.lastname AS lastname_user, `+
-  `USER.firstname AS fristname_user, `+
-  `USER.email AS email_user, `+
-  `USER.password AS password_user, `+
-  `USER.is_activated AS is_activated_user, `+
-  `vehicle.id AS id_vehicle, `+
-  `vehicle.price AS price_vehicle, `+
-  `vehicle.name AS name_vehicle, `+
-  `vehicle.brand AS brand_vehicle, `+
-  `customer.id AS id_customer, `+
-  `customer.id_user AS id_user_customer, `+
-  `customer.lastname AS lastname_customer, `+
-  `customer.firstname AS firstname_customer, `+
-  `customer.city_code AS city_code_customer, `+
-  `customer.phone AS phone_customer, `+
-  `customer.mobile AS mobile_customer, `+
-  `customer.email AS email_customer, `+
-  `customer.creation_date AS creation_date_customer, `+
-  `type_user.id AS id_type_user, `+
-  `type_user.name AS name_type_user `+
-`FROM `+
-  `quotation `+
-`LEFT JOIN USER ON quotation.id_user = USER.id `+
-`LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id `+
-`LEFT JOIN customer ON quotation.id_customer = customer.id `+
-`LEFT JOIN( `+
-  `SELECT `+
-      `user_custo.id AS id_user_custo, `+
-      `user_custo.id_type_user AS id_type_user_user_custo, `+
-      `user_custo.lastname AS lastname_user_custo, `+
-      `user_custo.firstname AS fristname_user_custo, `+
-      `user_custo.email AS email_user_custo, `+
-      `user_custo.password AS password_user_custo, `+
-      `user_custo.is_activated AS is_activated_user_custo `+
-  `FROM `+
-      `USER AS user_custo, `+
-      `customer `+
-  `WHERE `+
-      `user_custo.id = customer.id_user `+
-`) user_custo `+
-`ON `+
-  `user_custo.id_user_custo = customer.id_user `+
-  
-`LEFT JOIN type_user ON type_user.id = user_custo.id_type_user_user_custo `+
-`WHERE quotation.id = ${quotationId}`, (err, res) => {
-    if (err) {
-      console.log('error: ', err);
-      result(err, null);
-      return;
+  sql.query(
+    'SELECT DISTINCT ' +
+      'quotation.id AS id_quotation, ' +
+      'quotation.id_vehicle AS id_vehicle_quotation, ' +
+      'quotation.id_customer AS id_customer_quotation, ' +
+      'quotation.is_valid AS is_validquotation, ' +
+      'quotation.date_creation AS date_creation_quotation, ' +
+      'quotation.id_user AS id_user_quotation, ' +
+      'USER.id AS id_user, ' +
+      'USER.lastname AS lastname_user, ' +
+      'USER.firstname AS fristname_user, ' +
+      'USER.email AS email_user, ' +
+      'USER.password AS password_user, ' +
+      'USER.is_activated AS is_activated_user, ' +
+      'type_user.id id_type_user_user, ' +
+      'type_user.name AS name_type_user_user, ' +
+      'vehicle.id AS id_vehicle, ' +
+      'vehicle.price AS price_vehicle, ' +
+      'vehicle.name AS name_vehicle, ' +
+      'vehicle.brand AS brand_vehicle, ' +
+      'customer.id AS id_customer, ' +
+      'customer.id_user AS id_user_customer, ' +
+      'customer.lastname AS lastname_customer, ' +
+      'customer.firstname AS firstname_customer, ' +
+      'customer.city_code AS city_code_customer, ' +
+      'customer.phone AS phone_customer, ' +
+      'customer.mobile AS mobile_customer, ' +
+      'customer.email AS email_customer, ' +
+      'customer.creation_date AS creation_date_customer, ' +
+      'user_custo.id_user_custo, ' +
+      'user_custo.lastname_user_custo, ' +
+      'user_custo.fristname_user_custo, ' +
+      'user_custo.email_user_custo, ' +
+      'user_custo.password_user_custo, ' +
+      'user_custo.is_activated_user_custo, ' +
+      'user_custo.id_type_user_user_custo , ' +
+      'user_custo.name_type_user_user_custo ' +
+      'FROM ' +
+      'quotation ' +
+      'LEFT JOIN USER ON quotation.id_user = USER.id ' +
+      'LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id ' +
+      'LEFT JOIN customer ON quotation.id_customer = customer.id ' +
+      'LEFT JOIN( ' +
+      'SELECT ' +
+      'USER.id AS id_user_custo, ' +
+      'USER.lastname AS lastname_user_custo, ' +
+      'USER.firstname AS fristname_user_custo, ' +
+      'USER.email AS email_user_custo, ' +
+      'USER.password AS password_user_custo, ' +
+      'USER.is_activated AS is_activated_user_custo, ' +
+      'type_user.id AS id_type_user_user_custo, ' +
+      'type_user.name AS name_type_user_user_custo ' +
+      'FROM ' +
+      'USER, ' +
+      'customer, ' +
+      'type_user  ' +
+      'WHERE ' +
+      'USER.id = customer.id_user  ' +
+      'AND type_user.id = USER.id_type_user ' +
+      ') user_custo ' +
+      'ON ' +
+      'user_custo.id_user_custo = customer.id_user ' +
+      'LEFT JOIN type_user ON type_user.id = user.id_type_user ' +
+      `WHERE quotation.id = ${quotationId}`,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        console.log('found quotation: ', res[0]);
+        setQuotation(res)
+        result(null, res[0]);
+        return;
+      }
+      // not found Quotation with the id
+      result({ kind: 'not_found' }, null);
     }
-    if (res.length) {
-      console.log('found quotation: ', res[0]);
-      result(null, res[0]);
-      return;
-    }
-    // not found Quotation with the id
-    result({ kind: 'not_found' }, null);
-  });
+  );
 };
 
 Quotation.getAll = (result) => {
-  sql.query('SELECT DISTINCT '+
-  'quotation.id AS id_quotation, '+
-  'quotation.id_vehicle AS id_vehicle_quotation, '+
-  'quotation.id_customer AS id_customer_quotation, '+
-  'quotation.is_valid AS is_validquotation, '+
-  'quotation.date_creation AS date_creation_quotation, '+
-  'quotation.id_user AS id_user_quotation, '+
-  'USER.id AS id_user, '+
-  'USER.id_type_user AS id_type_user_user, '+
-  'USER.lastname AS lastname_user, '+
-  'USER.firstname AS fristname_user, '+
-  'USER.email AS email_user, '+
-  'USER.password AS password_user, '+
-  'USER.is_activated AS is_activated_user, '+
-  'vehicle.id AS id_vehicle, '+
-  'vehicle.price AS price_vehicle, '+
-  'vehicle.name AS name_vehicle, '+
-  'vehicle.brand AS brand_vehicle, '+
-  'customer.id AS id_customer, '+
-  'customer.id_user AS id_user_customer, '+
-  'customer.lastname AS lastname_customer, '+
-  'customer.firstname AS firstname_customer, '+
-  'customer.city_code AS city_code_customer, '+
-  'customer.phone AS phone_customer, '+
-  'customer.mobile AS mobile_customer, '+
-  'customer.email AS email_customer, '+
-  'customer.creation_date AS creation_date_customer, '+
-  'user_custo.id_user_custo, '+
-  'user_custo.id_type_user_user_custo, '+
-  'user_custo.lastname_user_custo, '+
-  'user_custo.fristname_user_custo, '+
-  'user_custo.email_user_custo, '+
-  'user_custo.password_user_custo, '+
-  'user_custo.is_activated_user_custo, '+
-  'type_user.id AS id_type_user, '+
-  'type_user.name AS name_type_user '+
-'FROM '+
-  'quotation '+
-'LEFT JOIN USER ON quotation.id_user = USER.id '+
-'LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id '+
-'LEFT JOIN customer ON quotation.id_customer = customer.id '+
-'LEFT JOIN( '+
-  'SELECT '+
-      'user_custo.id AS id_user_custo, '+
-      'user_custo.id_type_user AS id_type_user_user_custo, '+
-      'user_custo.lastname AS lastname_user_custo, '+
-      'user_custo.firstname AS fristname_user_custo, '+
-      'user_custo.email AS email_user_custo, '+
-      'user_custo.password AS password_user_custo, '+
-      'user_custo.is_activated AS is_activated_user_custo '+
-  'FROM '+
-      'USER AS user_custo, '+
-      'customer '+
-  'WHERE '+
-      'user_custo.id = customer.id_user '+
-') user_custo '+
-'ON '+
-  'user_custo.id_user_custo = customer.id_user '+
-  
-'LEFT JOIN type_user ON type_user.id = user_custo.id_type_user_user_custo', (err, res) => {
-    if (err) {
-      console.log('error: ', err);
-      result(null, err);
-      return;
+  sql.query(
+    'SELECT DISTINCT ' +
+      'quotation.id AS id_quotation, ' +
+      'quotation.id_vehicle AS id_vehicle_quotation, ' +
+      'quotation.id_customer AS id_customer_quotation, ' +
+      'quotation.is_valid AS is_validquotation, ' +
+      'quotation.date_creation AS date_creation_quotation, ' +
+      'quotation.id_user AS id_user_quotation, ' +
+      'USER.id AS id_user, ' +
+      'USER.lastname AS lastname_user, ' +
+      'USER.firstname AS fristname_user, ' +
+      'USER.email AS email_user, ' +
+      'USER.password AS password_user, ' +
+      'USER.is_activated AS is_activated_user, ' +
+      'type_user.id AS id_type_user_user, ' +
+      'type_user.name AS name_type_user_user, ' +
+      'vehicle.id AS id_vehicle, ' +
+      'vehicle.price AS price_vehicle, ' +
+      'vehicle.name AS name_vehicle, ' +
+      'vehicle.brand AS brand_vehicle, ' +
+      'customer.id AS id_customer, ' +
+      'customer.id_user AS id_user_customer, ' +
+      'customer.lastname AS lastname_customer, ' +
+      'customer.firstname AS firstname_customer, ' +
+      'customer.city_code AS city_code_customer, ' +
+      'customer.phone AS phone_customer, ' +
+      'customer.mobile AS mobile_customer, ' +
+      'customer.email AS email_customer, ' +
+      'customer.creation_date AS creation_date_customer, ' +
+      'user_custo.id_user_custo, ' +
+      'user_custo.lastname_user_custo, ' +
+      'user_custo.fristname_user_custo, ' +
+      'user_custo.email_user_custo, ' +
+      'user_custo.password_user_custo, ' +
+      'user_custo.is_activated_user_custo, ' +
+      'user_custo.id_type_user_user_custo , ' +
+      'user_custo.name_type_user_user_custo ' +
+    'FROM ' +
+        'quotation ' +
+    'LEFT JOIN USER ON quotation.id_user = USER.id ' +
+    'LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id ' +
+    'LEFT JOIN customer ON quotation.id_customer = customer.id ' +
+    'LEFT JOIN( ' +
+      'SELECT ' +
+        'USER.id AS id_user_custo, ' +
+        'USER.lastname AS lastname_user_custo, ' +
+        'USER.firstname AS fristname_user_custo, ' +
+        'USER.email AS email_user_custo, ' +
+        'USER.password AS password_user_custo, ' +
+        'USER.is_activated AS is_activated_user_custo, ' +
+        'type_user.id AS id_type_user_user_custo, ' +
+        'type_user.name AS name_type_user_user_custo ' +
+        'FROM ' +
+          'USER, ' +
+          'customer, ' +
+          'type_user  ' +
+        'WHERE ' +
+          'USER.id = customer.id_user  ' +
+          'AND type_user.id = USER.id_type_user ' +
+      ') user_custo ' +
+      'ON ' +
+      'user_custo.id_user_custo = customer.id_user ' +
+    'LEFT JOIN type_user ON type_user.id = user.id_type_user',
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(null, err);
+        return;
+      }
+
+      setQuotation(res);
+
+      console.log('quotation: ', res);
+      result(null, res);
     }
-    console.log('quotation: ', res);
-    result(null, res);
-  });
+  );
 };
 
 Quotation.updateById = (id, quotation, result) => {
@@ -219,3 +240,64 @@ Quotation.removeAll = (result) => {
   });
 };
 module.exports = Quotation;
+
+
+
+function setQuotation(res) {
+  res.forEach((obj, index) => {
+    const typeUserCustomer = { id: obj.id_type_user_user_custo, name: obj.name_type_user_user_custo };
+
+    const userCustomerCusto = {
+      id: obj.id_user_custo,
+      type_user: typeUserCustomer,
+      lastname: obj.lastname_user_custo,
+      firstname: obj.fristname_user_custo,
+      email: obj.email_user_custo,
+      password: obj.password_user_custo,
+      is_activated: obj.is_activated_user_custo,
+    };
+
+    const customerG = {
+      id: obj.id_customer,
+      user: userCustomerCusto,
+      lastname: obj.lastname_customer,
+      firstname: obj.firstname_customer,
+      city_code: obj.city_code_customer,
+      phone: obj.phone_customer,
+      mobile: obj.mobile_customer,
+      email: obj.email_customer,
+      creation_date: obj.creation_date_customer,
+    };
+
+
+    const typeUserCustomerQuotation = { id: obj.id_type_user_user, name: obj.name_type_user_user };
+
+    const userCustomerQuotation = {
+      id: obj.id_user,
+      type_user: typeUserCustomerQuotation,
+      lastname: obj.lastname_user,
+      firstname: obj.firstname_user,
+      email: obj.email_user,
+      password: obj.password_user,
+      is_activated: obj.is_activated_user,
+    };
+
+    const vehicule = {
+      id: obj.id_vehicle,
+      price: obj.price_vehicle,
+      name: obj.name_vehicle,
+      brand: obj.brand_vehicle,
+    };
+
+    const quotation = {
+      id: obj.id_quotation,
+      user: userCustomerQuotation,
+      vehicule: vehicule,
+      client: customerG,
+      valid: obj.is_validquotation,
+      creation_date: obj.date_creation_quotation
+    };
+    res[index] = quotation;
+  });
+}
+

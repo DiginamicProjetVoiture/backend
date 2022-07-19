@@ -20,39 +20,63 @@ Stock.create = (newStock, result) => {
 };
 
 Stock.findById = (stockId, result) => {
-  sql.query('SELECT stock.id, stock.number_stock, stock.date_update, '+
-  'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand '+
-  'FROM stock ' +
-  'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id'+
-  ` WHERE id = ${stockId}`, (err, res) => {
-    if (err) {
-      console.log('error: ', err);
-      result(err, null);
-      return;
+  sql.query(
+    'SELECT stock.id, stock.number_stock, stock.date_update, ' +
+      'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
+      'FROM stock ' +
+      'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id' +
+      ` WHERE id = ${stockId}`,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        console.log('found stock: ', res[0]);
+        result(null, res[0]);
+        return;
+      }
+      // not found Stock with the id
+      result({ kind: 'not_found' }, null);
     }
-    if (res.length) {
-      console.log('found stock: ', res[0]);
-      result(null, res[0]);
-      return;
-    }
-    // not found Stock with the id
-    result({ kind: 'not_found' }, null);
-  });
+  );
 };
 
 Stock.getAll = (result) => {
-  sql.query('SELECT stock.id, stock.number_stock, stock.date_update, '+
-  'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand '+
-  'FROM stock ' +
-  'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id', (err, res) => {
-    if (err) {
-      console.log('error: ', err);
-      result(null, err);
-      return;
+  sql.query(
+    'SELECT stock.id, stock.number_stock, stock.date_update, ' +
+      'vehicle.id AS id_vehicle, vehicle.price AS vehicle_price, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
+      'FROM stock ' +
+      'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id',
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(null, err);
+        return;
+      }
+
+      res.forEach((obj, index) => {
+        const vehicule = {
+          id: obj.id_vehicle,
+          price: obj.vehicle_price,
+          name: obj.vehicle_name,
+          brand: obj.vehicle_brand,
+        };
+
+        const stockG = {
+          id: obj.id,
+          vehicle: vehicule,
+          number_stock: obj.number_stock,
+          date_update: obj.date_update,
+        };
+
+        res[index] = stockG;
+      });
+      console.log('stock: ', res);
+      result(null, res);
     }
-    console.log('stock: ', res);
-    result(null, res);
-  });
+  );
 };
 
 Stock.updateById = (id, stock, result) => {
