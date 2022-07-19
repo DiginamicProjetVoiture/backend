@@ -25,7 +25,7 @@ Stock.findById = (stockId, result) => {
       'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
       'FROM stock ' +
       'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id' +
-      ` WHERE id = ${stockId}`,
+      ` WHERE stock.id = ${stockId}`,
     (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -34,6 +34,7 @@ Stock.findById = (stockId, result) => {
       }
       if (res.length) {
         console.log('found stock: ', res[0]);
+        setStock(res);
         result(null, res[0]);
         return;
       }
@@ -56,23 +57,7 @@ Stock.getAll = (result) => {
         return;
       }
 
-      res.forEach((obj, index) => {
-        const vehicule = {
-          id: obj.id_vehicle,
-          price: obj.vehicle_price,
-          name: obj.vehicle_name,
-          brand: obj.vehicle_brand,
-        };
-
-        const stockG = {
-          id: obj.id,
-          vehicle: vehicule,
-          number_stock: obj.number_stock,
-          date_update: obj.date_update,
-        };
-
-        res[index] = stockG;
-      });
+      setStock(res);
       console.log('stock: ', res);
       result(null, res);
     }
@@ -81,7 +66,7 @@ Stock.getAll = (result) => {
 
 Stock.updateById = (id, stock, result) => {
   sql.query(
-    'UPDATE stock SET id_vehicle = ?, number_stock = ?, update_date = ? WHERE id = ?',
+    'UPDATE stock SET id_vehicle = ?, number_stock = ?, date_update = ? WHERE id = ?',
     [stock.id_vehicle, stock.number_stock, stock.update_date, id],
     (err, res) => {
       if (err) {
@@ -129,3 +114,23 @@ Stock.removeAll = (result) => {
   });
 };
 module.exports = Stock;
+function setStock(res) {
+  res.forEach((obj, index) => {
+    const vehicule = {
+      id: obj.id_vehicle,
+      price: obj.vehicle_price,
+      name: obj.vehicle_name,
+      brand: obj.vehicle_brand,
+    };
+
+    const stockG = {
+      id: obj.id,
+      vehicle: vehicule,
+      number_stock: obj.number_stock,
+      date_update: obj.date_update,
+    };
+
+    res[index] = stockG;
+  });
+}
+

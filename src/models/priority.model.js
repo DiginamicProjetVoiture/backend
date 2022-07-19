@@ -48,7 +48,7 @@ Priority.getAll = (result) => {
 
 Priority.updateById = (id, priority, result) => {
   sql.query(
-    'UPDATE priority SET name = ?, WHERE id = ?',
+    'UPDATE priority SET name = ? WHERE id = ?',
     [priority.name, id],
     (err, res) => {
       if (err) {

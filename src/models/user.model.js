@@ -3,7 +3,7 @@ const sql = require('./db.js');
 // constructor
 const User = function (user) {
   this.id = user.id;
-  this.type_user = user.type_user;
+  this.id_type_user = user.id_type_user;
   // this.id_type_user = user.id_type_user;
   this.lastname = user.lastname;
   this.firstname = user.firstname;
@@ -37,20 +37,7 @@ User.findById = (userId, result) => {
     if (res.length) {
       console.log('found user: ', res[0]);
 
-      res.forEach((user, index) => {
-        const typeUser = { id: user.id_type_user, name: user.name_type_user };
-
-        const userG = {
-          id: user.id,
-          type_user: typeUser,
-          lastname: user.lastname,
-          firstname: user.firstname,
-          email: user.email,
-          password: user.password,
-          is_activated: user.is_activated
-        }
-        res[index] = userG;
-      });
+      setUser(res);
 
 
       result(null, res[0]);
@@ -74,22 +61,7 @@ User.getAll = (result) => {
         return;
       }
       console.log('user: ', res);
-
-      res.forEach((user, index) => {
-        const typeUser = { id: user.id_type_user, name: user.name_type_user };
-
-        const userG = {
-          id: user.id,
-          type_user: typeUser,
-          lastname: user.lastname,
-          firstname: user.firstname,
-          email: user.email,
-          password: user.password,
-          is_activated: user.is_activated
-        }
-        res[index] = userG;
-      });
-
+      setUser(res);
       result(null, res);
     }
   );
@@ -97,9 +69,9 @@ User.getAll = (result) => {
 
 User.updateById = (id, user, result) => {
   sql.query(
-    'UPDATE user SET id_type_user = ?, lastname = ?, fristname = ?, email = ?, password = ?, is_activated = ?, WHERE id = ?',
+    'UPDATE user SET id_type_user = ?, lastname = ?, firstname = ?, email = ?, password = ?, is_activated = ? WHERE id = ?',
     [
-      user.type_user.id,
+      user.id_type_user,
       user.lastname,
       user.firstname,
       user.email,
@@ -153,3 +125,20 @@ User.removeAll = (result) => {
   });
 };
 module.exports = User;
+function setUser(res) {
+  res.forEach((user, index) => {
+    const typeUser = { id: user.id_type_user, name: user.name_type_user };
+
+    const userG = {
+      id: user.id,
+      type_user: typeUser,
+      lastname: user.lastname,
+      firstname: user.firstname,
+      email: user.email,
+      password: user.password,
+      is_activated: user.is_activated
+    };
+    res[index] = userG;
+  });
+}
+

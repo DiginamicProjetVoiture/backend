@@ -11,10 +11,10 @@ exports.create = (req, res) => {
 
   // Create a CommandOrder
   const commandOrder = new CommandOrder({
-    id_quotation: req.body.quotation.id_quotation,
-    id_priority: req.body.priority.id_priority,
+    id_quotation: req.body.id_quotation,
+    id_priority: req.body.id_priority,
     closure_date: req.body.closure_date,
-    is_delivred: req.body.is_delivred
+    is_delivered: req.body.is_delivered
   });
 
   // Save CommandOrder in the database

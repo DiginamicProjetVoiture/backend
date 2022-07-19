@@ -11,9 +11,9 @@ exports.create = (req, res) => {
 
   // Create a Stock
   const stock = new Stock({
-    id_vehicle: req.body.vehicle.id_vehicle,
+    id_vehicle: req.body.id_vehicle,
     number_stock: req.body.number_stock,
-    date_update: req.body.date_update
+    date_update: req.body.date_update ? req.body.date_update : null
   });
 
   // Save Stock in the database

@@ -1,15 +1,15 @@
 const sql = require('./db.js');
 
 // constructor
-const CommandCommandOrder = function (commandOrder) {
+const CommandOrder = function (commandOrder) {
   this.id_quotation = commandOrder.id_quotation;
   this.id_priority = commandOrder.id_priority;
   this.closure_date = commandOrder.closure_date;
-  this.is_delivred = commandOrder.is_delivred;
+  this.is_delivered = commandOrder.is_delivered;
 };
 
-CommandCommandOrder.create = (newCommandOrder, result) => {
-  sql.query('INSERT INTO commandOrder SET ?', newCommandOrder, (err, res) => {
+CommandOrder.create = (newCommandOrder, result) => {
+  sql.query('INSERT INTO command_order SET ?', newCommandOrder, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(err, null);
@@ -20,7 +20,7 @@ CommandCommandOrder.create = (newCommandOrder, result) => {
   });
 };
 
-CommandCommandOrder.findById = (commandOrderId, result) => {
+CommandOrder.findById = (commandOrderId, result) => {
   sql.query(
 `SELECT ` +
   `command_order.id AS id_command_order, ` +
@@ -39,7 +39,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
   `quotation_command_order.id_user, ` +
   // `quotation_command_order.id_type_user_user, ` +
   `quotation_command_order.lastname_user, ` +
-  `quotation_command_order.fristname_user, ` +
+  `quotation_command_order.firstname_user, ` +
   `quotation_command_order.email_user, ` +
   `quotation_command_order.password_user, ` +
   `quotation_command_order.is_activated_user, ` +
@@ -61,7 +61,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
   `quotation_command_order.id_user_custo, ` +
   `quotation_command_order.id_type_user_user_custo, ` +
   `quotation_command_order.lastname_user_custo, ` +
-  `quotation_command_order.fristname_user_custo, ` +
+  `quotation_command_order.firstname_user_custo, ` +
   `quotation_command_order.email_user_custo, ` +
   `quotation_command_order.password_user_custo, ` +
   `quotation_command_order.is_activated_user_custo, ` +
@@ -80,7 +80,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
       `USER.id AS id_user, ` +
       // `USER.id_type_user AS id_type_user_user, ` +
       `USER.lastname AS lastname_user, ` +
-      `USER.firstname AS fristname_user, ` +
+      `USER.firstname AS firstname_user, ` +
       `USER.email AS email_user, ` +
       `USER.password AS password_user, ` +
       `USER.is_activated AS is_activated_user, ` +
@@ -101,7 +101,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
       `customer.creation_date AS creation_date_customer, ` +
       `user_custo.id_user_custo, ` +
       `user_custo.lastname_user_custo, ` +
-      `user_custo.fristname_user_custo, ` +
+      `user_custo.firstname_user_custo, ` +
       `user_custo.email_user_custo, ` +
       `user_custo.password_user_custo, ` +
       `user_custo.is_activated_user_custo, ` +
@@ -117,7 +117,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
           `USER.id AS id_user_custo, ` +
           // `USER.id_type_user AS id_type_user_user_custo, ` +
           `USER.lastname AS lastname_user_custo, ` +
-          `USER.firstname AS fristname_user_custo, ` +
+          `USER.firstname AS firstname_user_custo, ` +
           `USER.email AS email_user_custo, ` +
           `USER.password AS password_user_custo, ` +
           `USER.is_activated AS is_activated_user_custo, ` +
@@ -156,7 +156,7 @@ CommandCommandOrder.findById = (commandOrderId, result) => {
   });
 };
 
-CommandCommandOrder.getAll = (result) => {
+CommandOrder.getAll = (result) => {
   sql.query(`SELECT ` +
   `command_order.id AS id_command_order, ` +
   `command_order.id_quotation AS id_quotation_command_order, ` +
@@ -174,7 +174,7 @@ CommandCommandOrder.getAll = (result) => {
   `quotation_command_order.id_user, ` +
   // `quotation_command_order.id_type_user_user, ` +
   `quotation_command_order.lastname_user, ` +
-  `quotation_command_order.fristname_user, ` +
+  `quotation_command_order.firstname_user, ` +
   `quotation_command_order.email_user, ` +
   `quotation_command_order.password_user, ` +
   `quotation_command_order.is_activated_user, ` +
@@ -196,7 +196,7 @@ CommandCommandOrder.getAll = (result) => {
   `quotation_command_order.id_user_custo, ` +
   `quotation_command_order.id_type_user_user_custo, ` +
   `quotation_command_order.lastname_user_custo, ` +
-  `quotation_command_order.fristname_user_custo, ` +
+  `quotation_command_order.firstname_user_custo, ` +
   `quotation_command_order.email_user_custo, ` +
   `quotation_command_order.password_user_custo, ` +
   `quotation_command_order.is_activated_user_custo, ` +
@@ -215,7 +215,7 @@ CommandCommandOrder.getAll = (result) => {
       `USER.id AS id_user, ` +
       // `USER.id_type_user AS id_type_user_user, ` +
       `USER.lastname AS lastname_user, ` +
-      `USER.firstname AS fristname_user, ` +
+      `USER.firstname AS firstname_user, ` +
       `USER.email AS email_user, ` +
       `USER.password AS password_user, ` +
       `USER.is_activated AS is_activated_user, ` +
@@ -236,7 +236,7 @@ CommandCommandOrder.getAll = (result) => {
       `customer.creation_date AS creation_date_customer, ` +
       `user_custo.id_user_custo, ` +
       `user_custo.lastname_user_custo, ` +
-      `user_custo.fristname_user_custo, ` +
+      `user_custo.firstname_user_custo, ` +
       `user_custo.email_user_custo, ` +
       `user_custo.password_user_custo, ` +
       `user_custo.is_activated_user_custo, ` +
@@ -252,7 +252,7 @@ CommandCommandOrder.getAll = (result) => {
           `USER.id AS id_user_custo, ` +
           // `USER.id_type_user AS id_type_user_user_custo, ` +
           `USER.lastname AS lastname_user_custo, ` +
-          `USER.firstname AS fristname_user_custo, ` +
+          `USER.firstname AS firstname_user_custo, ` +
           `USER.email AS email_user_custo, ` +
           `USER.password AS password_user_custo, ` +
           `USER.is_activated AS is_activated_user_custo, ` +
@@ -284,14 +284,14 @@ CommandCommandOrder.getAll = (result) => {
   });
 };
 
-CommandCommandOrder.updateById = (id, commandOrder, result) => {
+CommandOrder.updateById = (id, commandOrder, result) => {
   sql.query(
-    'UPDATE commandOrder SET id_quotation = ?, id_priority = ?, closure_date = ?, is_delivred = ?, WHERE id = ?',
+    'UPDATE command_order SET id_quotation = ?, id_priority = ?, closure_date = ?, is_delivered = ? WHERE id = ?',
     [
       commandOrder.id_quotation,
       commandOrder.id_priority,
       commandOrder.closure_date,
-      commandOrder.is_delivred,
+      commandOrder.is_delivered,
       id,
     ],
     (err, res) => {
@@ -311,7 +311,7 @@ CommandCommandOrder.updateById = (id, commandOrder, result) => {
   );
 };
 
-CommandCommandOrder.remove = (id, result) => {
+CommandOrder.remove = (id, result) => {
   sql.query('DELETE FROM commandOrder WHERE id = ?', id, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -328,7 +328,7 @@ CommandCommandOrder.remove = (id, result) => {
   });
 };
 
-CommandCommandOrder.removeAll = (result) => {
+CommandOrder.removeAll = (result) => {
   sql.query('DELETE FROM commandOrder', (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -339,7 +339,7 @@ CommandCommandOrder.removeAll = (result) => {
     result(null, res);
   });
 };
-module.exports = CommandCommandOrder;
+module.exports = CommandOrder;
 
 
 function setCommandOrder(res) {
@@ -350,7 +350,7 @@ function setCommandOrder(res) {
       id: obj.id_user_custo,
       type_user: typeUserCustomer,
       lastname: obj.lastname_user_custo,
-      firstname: obj.fristname_user_custo,
+      firstname: obj.firstname_user_custo,
       email: obj.email_user_custo,
       password: obj.password_user_custo,
       is_activated: obj.is_activated_user_custo,
@@ -408,7 +408,7 @@ function setCommandOrder(res) {
       quotation: quotation,
       priority : priority,
       closure_date : obj.closure_date_command_order,
-      is_delivred : obj.is_delivered_command_order
+      is_delivered : obj.is_delivered_command_order
     };
 
     res[index] = commandOrder;

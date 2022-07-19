@@ -11,11 +11,11 @@ exports.create = (req, res) => {
 
   // Create a Quotation
   const quotation = new Quotation({
-    id_user: req.body.user.id_vehicle,
-    id_vehicule: req.body.vehucle.id_vehicule,
-    id_customer: req.body.customer.id_customer,
+    id_user: req.body.id_vehicle,
+    id_vehicle: req.body.id_vehicle,
+    id_customer: req.body.id_customer,
     is_valid: req.body.is_valid,
-    creation_date: req.body.creation_date
+    date_creation: req.body.date_creation
   });
 
   // Save Quotation in the database

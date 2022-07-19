@@ -3,10 +3,10 @@ const sql = require('./db.js');
 // constructor
 const Quotation = function (quotation) {
   this.id_user = quotation.id_user;
-  this.id_vehicule = quotation.id_vehicule;
-  this.id_client = quotation.id_client;
+  this.id_vehicle = quotation.id_vehicle;
+  this.id_customer = quotation.id_customer;
   this.is_valid = quotation.is_valid;
-  this.creation_date = quotation.creation_date;
+  this.date_creation = quotation.date_creation;
 };
 
 Quotation.create = (newQuotation, result) => {
@@ -32,7 +32,7 @@ Quotation.findById = (quotationId, result) => {
       'quotation.id_user AS id_user_quotation, ' +
       'USER.id AS id_user, ' +
       'USER.lastname AS lastname_user, ' +
-      'USER.firstname AS fristname_user, ' +
+      'USER.firstname AS firstname_user, ' +
       'USER.email AS email_user, ' +
       'USER.password AS password_user, ' +
       'USER.is_activated AS is_activated_user, ' +
@@ -53,7 +53,7 @@ Quotation.findById = (quotationId, result) => {
       'customer.creation_date AS creation_date_customer, ' +
       'user_custo.id_user_custo, ' +
       'user_custo.lastname_user_custo, ' +
-      'user_custo.fristname_user_custo, ' +
+      'user_custo.firstname_user_custo, ' +
       'user_custo.email_user_custo, ' +
       'user_custo.password_user_custo, ' +
       'user_custo.is_activated_user_custo, ' +
@@ -68,7 +68,7 @@ Quotation.findById = (quotationId, result) => {
       'SELECT ' +
       'USER.id AS id_user_custo, ' +
       'USER.lastname AS lastname_user_custo, ' +
-      'USER.firstname AS fristname_user_custo, ' +
+      'USER.firstname AS firstname_user_custo, ' +
       'USER.email AS email_user_custo, ' +
       'USER.password AS password_user_custo, ' +
       'USER.is_activated AS is_activated_user_custo, ' +
@@ -115,7 +115,7 @@ Quotation.getAll = (result) => {
       'quotation.id_user AS id_user_quotation, ' +
       'USER.id AS id_user, ' +
       'USER.lastname AS lastname_user, ' +
-      'USER.firstname AS fristname_user, ' +
+      'USER.firstname AS firstname_user, ' +
       'USER.email AS email_user, ' +
       'USER.password AS password_user, ' +
       'USER.is_activated AS is_activated_user, ' +
@@ -136,7 +136,7 @@ Quotation.getAll = (result) => {
       'customer.creation_date AS creation_date_customer, ' +
       'user_custo.id_user_custo, ' +
       'user_custo.lastname_user_custo, ' +
-      'user_custo.fristname_user_custo, ' +
+      'user_custo.firstname_user_custo, ' +
       'user_custo.email_user_custo, ' +
       'user_custo.password_user_custo, ' +
       'user_custo.is_activated_user_custo, ' +
@@ -151,7 +151,7 @@ Quotation.getAll = (result) => {
       'SELECT ' +
         'USER.id AS id_user_custo, ' +
         'USER.lastname AS lastname_user_custo, ' +
-        'USER.firstname AS fristname_user_custo, ' +
+        'USER.firstname AS firstname_user_custo, ' +
         'USER.email AS email_user_custo, ' +
         'USER.password AS password_user_custo, ' +
         'USER.is_activated AS is_activated_user_custo, ' +
@@ -185,13 +185,13 @@ Quotation.getAll = (result) => {
 
 Quotation.updateById = (id, quotation, result) => {
   sql.query(
-    'UPDATE quotation SET id_user = ?, id_vehicule = ?, id_client = ?, is_valid = ?, creation_date = ?, WHERE id = ?',
+    'UPDATE quotation SET id_user = ?, id_vehicle = ?, id_customer = ?, is_valid = ?, date_creation = ? WHERE quotation.id = ?',
     [
       quotation.id_user,
-      quotation.id_vehicule,
-      quotation.id_client,
+      quotation.id_vehicle,
+      quotation.id_customer,
       quotation.is_valid,
-      quotation.creation_date,
+      quotation.date_creation,
       id,
     ],
     (err, res) => {
@@ -251,7 +251,7 @@ function setQuotation(res) {
       id: obj.id_user_custo,
       type_user: typeUserCustomer,
       lastname: obj.lastname_user_custo,
-      firstname: obj.fristname_user_custo,
+      firstname: obj.firstname_user_custo,
       email: obj.email_user_custo,
       password: obj.password_user_custo,
       is_activated: obj.is_activated_user_custo,
@@ -282,7 +282,7 @@ function setQuotation(res) {
       is_activated: obj.is_activated_user,
     };
 
-    const vehicule = {
+    const vehicle = {
       id: obj.id_vehicle,
       price: obj.price_vehicle,
       name: obj.name_vehicle,
@@ -292,10 +292,10 @@ function setQuotation(res) {
     const quotation = {
       id: obj.id_quotation,
       user: userCustomerQuotation,
-      vehicule: vehicule,
-      client: customerG,
-      valid: obj.is_validquotation,
-      creation_date: obj.date_creation_quotation
+      vehicle: vehicle,
+      customer: customerG,
+      is_valid: obj.is_validquotation,
+      date_creation: obj.date_creation_quotation
     };
     res[index] = quotation;
   });

@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 
   // Create a Bill
   const bill = new Bill({
-    id_order: req.body.commandOrder.id_order,
+    id_order: req.body.id_order,
     creation_date: req.body.creation_date,
     price_duty_free: req.body.price_duty_free,
     tva_amount: req.body.tva_amount

@@ -33,7 +33,7 @@ require("./src/routes/stock.routes.js")(app);
 require("./src/routes/quotation.routes.js")(app);
 require("./src/routes/commandOrder.routes.js")(app);
 require("./src/routes/bill.routes.js")(app);
-// require("./src/routes/user.routes.js")(app);
+require("./src/routes/priority.routes.js")(app);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

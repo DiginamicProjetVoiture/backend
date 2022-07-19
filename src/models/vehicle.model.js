@@ -50,7 +50,7 @@ Vehicle.getAll = (result) => {
 
 Vehicle.updateById = (id, vehicle, result) => {
   sql.query(
-    'UPDATE vehicle SET id_user = ?, price = ?, name = ?, brand = ?, WHERE id = ?',
+    'UPDATE vehicle SET price = ?, name = ?, brand = ? WHERE id = ?',
     [vehicle.price, vehicle.name, vehicle.brand, id],
     (err, res) => {
       if (err) {

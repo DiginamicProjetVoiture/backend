@@ -44,7 +44,7 @@ Bill.findById = (billId, result) => {
   'command_order_bill.id_user, '+
   'command_order_bill.id_type_user_user, '+
   'command_order_bill.lastname_user, '+
-  'command_order_bill.fristname_user, '+
+  'command_order_bill.firstname_user, '+
   'command_order_bill.email_user, '+
   'command_order_bill.password_user, '+
   'command_order_bill.is_activated_user, '+
@@ -64,7 +64,7 @@ Bill.findById = (billId, result) => {
   'command_order_bill.id_user_custo, '+
   'command_order_bill.id_type_user_user_custo, '+
   'command_order_bill.lastname_user_custo, '+
-  'command_order_bill.fristname_user_custo, '+
+  'command_order_bill.firstname_user_custo, '+
   'command_order_bill.email_user_custo, '+
   'command_order_bill.password_user_custo, '+
   'command_order_bill.is_activated_user_custo, '+
@@ -91,7 +91,7 @@ Bill.findById = (billId, result) => {
       'quotation_command_order.id_user, '+
       // 'quotation_command_order.id_type_user_user, '+
       'quotation_command_order.lastname_user, '+
-      'quotation_command_order.fristname_user, '+
+      'quotation_command_order.firstname_user, '+
       'quotation_command_order.email_user, '+
       'quotation_command_order.password_user, '+
       'quotation_command_order.is_activated_user, '+
@@ -114,7 +114,7 @@ Bill.findById = (billId, result) => {
       'quotation_command_order.id_user_custo, '+
       'quotation_command_order.id_type_user_user_custo, '+
       'quotation_command_order.lastname_user_custo, '+
-      'quotation_command_order.fristname_user_custo, '+
+      'quotation_command_order.firstname_user_custo, '+
       'quotation_command_order.email_user_custo, '+
       'quotation_command_order.password_user_custo, '+
       'quotation_command_order.is_activated_user_custo, '+
@@ -133,7 +133,7 @@ Bill.findById = (billId, result) => {
           'USER.id AS id_user, '+
           // 'USER.id_type_user AS id_type_user_user, '+
           'USER.lastname AS lastname_user, '+
-          'USER.firstname AS fristname_user, '+
+          'USER.firstname AS firstname_user, '+
           'USER.email AS email_user, '+
           'USER.password AS password_user, '+
           'USER.is_activated AS is_activated_user, '+
@@ -156,7 +156,7 @@ Bill.findById = (billId, result) => {
           'user_custo.id_user_custo, '+
           'user_custo.id_type_user_user_custo, '+
           'user_custo.lastname_user_custo, '+
-          'user_custo.fristname_user_custo, '+
+          'user_custo.firstname_user_custo, '+
           'user_custo.email_user_custo, '+
           'user_custo.password_user_custo, '+
           'user_custo.is_activated_user_custo, '+
@@ -172,7 +172,7 @@ Bill.findById = (billId, result) => {
               'USER.id AS id_user_custo, '+
               // 'user_custo.id_type_user AS id_type_user_user_custo, '+
               'USER.lastname AS lastname_user_custo, '+
-              'USER.firstname AS fristname_user_custo, '+
+              'USER.firstname AS firstname_user_custo, '+
               'USER.email AS email_user_custo, '+
               'USER.password AS password_user_custo, '+
               'USER.is_activated AS is_activated_user_custo, '+
@@ -237,7 +237,7 @@ Bill.getAll = (result) => {
   'command_order_bill.id_user, '+
   'command_order_bill.id_type_user_user, '+
   'command_order_bill.lastname_user, '+
-  'command_order_bill.fristname_user, '+
+  'command_order_bill.firstname_user, '+
   'command_order_bill.email_user, '+
   'command_order_bill.password_user, '+
   'command_order_bill.is_activated_user, '+
@@ -260,7 +260,7 @@ Bill.getAll = (result) => {
   'command_order_bill.id_user_custo, '+
   // 'command_order_bill.id_type_user_user_custo, '+
   'command_order_bill.lastname_user_custo, '+
-  'command_order_bill.fristname_user_custo, '+
+  'command_order_bill.firstname_user_custo, '+
   'command_order_bill.email_user_custo, '+
   'command_order_bill.password_user_custo, '+
   'command_order_bill.is_activated_user_custo, '+
@@ -287,7 +287,7 @@ Bill.getAll = (result) => {
       'quotation_command_order.id_user, '+
       // 'quotation_command_order.id_type_user_user, '+
       'quotation_command_order.lastname_user, '+
-      'quotation_command_order.fristname_user, '+
+      'quotation_command_order.firstname_user, '+
       'quotation_command_order.email_user, '+
       'quotation_command_order.password_user, '+
       'quotation_command_order.is_activated_user, '+
@@ -310,7 +310,7 @@ Bill.getAll = (result) => {
       'quotation_command_order.id_user_custo, '+
       // 'quotation_command_order.id_type_user_user_custo, '+
       'quotation_command_order.lastname_user_custo, '+
-      'quotation_command_order.fristname_user_custo, '+
+      'quotation_command_order.firstname_user_custo, '+
       'quotation_command_order.email_user_custo, '+
       'quotation_command_order.password_user_custo, '+
       'quotation_command_order.is_activated_user_custo, '+
@@ -329,7 +329,7 @@ Bill.getAll = (result) => {
           'USER.id AS id_user, '+
           // 'USER.id_type_user AS id_type_user_user, '+
           'USER.lastname AS lastname_user, '+
-          'USER.firstname AS fristname_user, '+
+          'USER.firstname AS firstname_user, '+
           'USER.email AS email_user, '+
           'USER.password AS password_user, '+
           'USER.is_activated AS is_activated_user, '+
@@ -352,7 +352,7 @@ Bill.getAll = (result) => {
           'user_custo.id_user_custo, '+
           // 'user_custo.id_type_user_user_custo, '+
           'user_custo.lastname_user_custo, '+
-          'user_custo.fristname_user_custo, '+
+          'user_custo.firstname_user_custo, '+
           'user_custo.email_user_custo, '+
           'user_custo.password_user_custo, '+
           'user_custo.is_activated_user_custo, '+
@@ -368,7 +368,7 @@ Bill.getAll = (result) => {
               'USER.id AS id_user_custo, '+
               // 'user_custo.id_type_user AS id_type_user_user_custo, '+
               'USER.lastname AS lastname_user_custo, '+
-              'USER.firstname AS fristname_user_custo, '+
+              'USER.firstname AS firstname_user_custo, '+
               'USER.email AS email_user_custo, '+
               'USER.password AS password_user_custo, '+
               'USER.is_activated AS is_activated_user_custo, '+
@@ -405,8 +405,8 @@ Bill.getAll = (result) => {
 
 Bill.updateById = (id, bill, result) => {
   sql.query(
-    'UPDATE bill SET id_quotation = ?, creation_date = ?, price_duty_free = ?, tva_amount = ?, WHERE id = ?',
-    [bill.id_quotation, bill.creation_date, bill.price_duty_free, bill.tva_amount, id],
+    'UPDATE bill SET id_order = ?, creation_date = ?, price_duty_free = ?, tva_amount = ? WHERE id = ?',
+    [bill.id_order, bill.creation_date, bill.price_duty_free, bill.tva_amount, id],
     (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -463,7 +463,7 @@ function setBill(res) {
       id: obj.id_user_custo,
       type_user: typeUserCustomer,
       lastname: obj.lastname_user_custo,
-      firstname: obj.fristname_user_custo,
+      firstname: obj.firstname_user_custo,
       email: obj.email_user_custo,
       password: obj.password_user_custo,
       is_activated: obj.is_activated_user_custo,

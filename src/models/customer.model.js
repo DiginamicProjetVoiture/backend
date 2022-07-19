@@ -39,32 +39,7 @@ Customer.findById = (customerId, result) => {
     if (res.length) {
       console.log('found customer: ', res[0]);
 
-      res.forEach((obj, index) => {
-        const typeUser = { id: obj.id_type_user, name: obj.name_type_user };
-  
-        const userG = {
-          id: obj.user_id,
-          type_user: typeUser,
-          lastname: obj.user_lastname,
-          firstname: obj.user_firstname,
-          email: obj.user_email,
-          password: obj.user_password,
-          is_activated: obj.user_is_activated
-        }
-  
-        const customerG = {
-          id: obj.id_customer,
-          user : userG,
-          lastname : obj.lastname_customer,
-          firstname : obj.firstname_customer,
-          city_code : obj.city_code_customer,
-          phone : obj.phone_customer,
-          mobile : obj.mobile_customer,
-          email : obj.email_customer,
-          creation_date : obj.creation_date_customer
-        }
-        res[index] = customerG;
-      });
+      setCustomer(res);
 
       result(null, res[0]);
       return;
@@ -87,32 +62,8 @@ Customer.getAll = (result) => {
     }
     console.log('customer: ', res);
 
-    res.forEach((obj, index) => {
-      const typeUser = { id: obj.id_type_user, name: obj.name_type_user };
-
-      const userG = {
-        id: obj.user_id,
-        type_user: typeUser,
-        lastname: obj.user_lastname,
-        firstname: obj.user_firstname,
-        email: obj.user_email,
-        password: obj.user_password,
-        is_activated: obj.user_is_activated
-      }
-
-      const customerG = {
-        id: obj.id_customer,
-        user : userG,
-        lastname : obj.lastname_customer,
-        firstname : obj.firstname_customer,
-        city_code : obj.city_code_customer,
-        phone : obj.phone_customer,
-        mobile : obj.mobile_customer,
-        email : obj.email_customer,
-        creation_date : obj.creation_date_customer
-      }
-      res[index] = customerG;
-    });
+    
+    setCustomer(res);
 
     result(null, res);
   });
@@ -120,7 +71,7 @@ Customer.getAll = (result) => {
 
 Customer.updateById = (id, customer, result) => {
   sql.query(
-    'UPDATE customer SET id_user = ?, lastname = ?, fristname = ?, city_code = ?, phone = ?, mobile = ?,  creation_date = ?, WHERE id = ?',
+    'UPDATE customer SET id_user = ?, lastname = ?, firstname = ?, city_code = ?, phone = ?, mobile = ?,  creation_date = ? WHERE id = ?',
     [
       customer.id_user,
       customer.lastname,
@@ -177,3 +128,32 @@ Customer.removeAll = (result) => {
   });
 };
 module.exports = Customer;
+function setCustomer(res) {
+  res.forEach((obj, index) => {
+    const typeUser = { id: obj.id_type_user, name: obj.name_type_user };
+
+    const userG = {
+      id: obj.user_id,
+      type_user: typeUser,
+      lastname: obj.user_lastname,
+      firstname: obj.user_firstname,
+      email: obj.user_email,
+      password: obj.user_password,
+      is_activated: obj.user_is_activated
+    };
+
+    const customerG = {
+      id: obj.id_customer,
+      user: userG,
+      lastname: obj.lastname_customer,
+      firstname: obj.firstname_customer,
+      city_code: obj.city_code_customer,
+      phone: obj.phone_customer,
+      mobile: obj.mobile_customer,
+      email: obj.email_customer,
+      creation_date: obj.creation_date_customer
+    };
+    res[index] = customerG;
+  });
+}
+
