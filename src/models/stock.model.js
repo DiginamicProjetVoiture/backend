@@ -4,7 +4,7 @@ const sql = require('./db.js');
 const Stock = function (stock) {
   this.id_vehicle = stock.id_vehicle;
   this.number_stock = stock.number_stock;
-  this.date_update = stock.date_update;
+  this.updated_at = stock.updated_at;
 };
 
 Stock.create = (newStock, result) => {
@@ -21,7 +21,7 @@ Stock.create = (newStock, result) => {
 
 Stock.findById = (stockId, result) => {
   sql.query(
-    'SELECT stock.id, stock.number_stock, stock.date_update, ' +
+    'SELECT stock.id, stock.number_stock, stock.updated_at, ' +
       'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
       'FROM stock ' +
       'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id' +
@@ -46,7 +46,7 @@ Stock.findById = (stockId, result) => {
 
 Stock.getAll = (result) => {
   sql.query(
-    'SELECT stock.id, stock.number_stock, stock.date_update, ' +
+    'SELECT stock.id, stock.number_stock, stock.updated_at, ' +
       'vehicle.id AS id_vehicle, vehicle.price AS vehicle_price, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
       'FROM stock ' +
       'LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id',
@@ -66,7 +66,7 @@ Stock.getAll = (result) => {
 
 Stock.updateById = (id, stock, result) => {
   sql.query(
-    'UPDATE stock SET id_vehicle = ?, number_stock = ?, date_update = ? WHERE id = ?',
+    'UPDATE stock SET id_vehicle = ?, number_stock = ?, updated_at = ? WHERE id = ?',
     [stock.id_vehicle, stock.number_stock, stock.update_date, id],
     (err, res) => {
       if (err) {
@@ -127,7 +127,7 @@ function setStock(res) {
       id: obj.id,
       vehicle: vehicule,
       number_stock: obj.number_stock,
-      date_update: obj.date_update,
+      updated_at: obj.updated_at,
     };
 
     res[index] = stockG;

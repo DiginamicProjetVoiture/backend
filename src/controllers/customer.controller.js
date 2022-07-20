@@ -15,10 +15,11 @@ exports.create = (req, res) => {
     lastname: req.body.lastname,
     firstname: req.body.firstname,
     city_code: req.body.city_code,
+    address: req.body.address,
     phone: req.body.phone,
     mobile: req.body.mobile,
     email: req.body.email,
-    creation_date: req.body.creation_date
+    created_at: req.body.created_at
   });
 
   // Save Customer in the database

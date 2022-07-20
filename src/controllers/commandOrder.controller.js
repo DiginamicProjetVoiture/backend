@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   const commandOrder = new CommandOrder({
     id_quotation: req.body.id_quotation,
     id_priority: req.body.id_priority,
-    closure_date: req.body.closure_date,
+    closed_at: req.body.closed_at,
     is_delivered: req.body.is_delivered
   });
 

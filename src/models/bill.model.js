@@ -2,8 +2,8 @@ const sql = require('./db.js');
 
 // constructor
 const Bill = function (bill) {
-  this.id_order = bill.id_order;
-  this.creation_date = bill.creation_date;
+  this.id_command_order = bill.id_command_order;
+  this.created_at = bill.created_at;
   this.price_duty_free = bill.price_duty_free;
   this.tva_amount = bill.tva_amount;
 };
@@ -23,14 +23,14 @@ Bill.create = (newBill, result) => {
 Bill.findById = (billId, result) => {
   sql.query('SELECT '+
   'bill.id, '+
-  'bill.id_order, '+
-  'bill.creation_date, '+
+  'bill.id_command_order, '+
+  'bill.created_at, '+
   'bill.price_duty_free, '+
   'bill.tva_amount, '+
   'command_order_bill.id_command_order, '+
   'command_order_bill.id_quotation_command_order, '+
   'command_order_bill.id_priority_command_order, '+
-  'command_order_bill.closure_date_command_order, '+
+  'command_order_bill.closed_at_command_order, '+
   'command_order_bill.is_delivered_command_order, '+
   'command_order_bill.id_priority, ' +
   'command_order_bill.name_priority, ' +  
@@ -39,7 +39,7 @@ Bill.findById = (billId, result) => {
   'command_order_bill.id_vehicle_quotation, '+
   'command_order_bill.id_customer_quotation, '+
   'command_order_bill.is_validquotation, '+
-  'command_order_bill.date_creation_quotation, '+
+  'command_order_bill.created_at_quotation, '+
   'command_order_bill.id_user_quotation, '+
   'command_order_bill.id_user, '+
   'command_order_bill.id_type_user_user, '+
@@ -57,10 +57,11 @@ Bill.findById = (billId, result) => {
   'command_order_bill.lastname_customer, '+
   'command_order_bill.firstname_customer, '+
   'command_order_bill.city_code_customer, '+
+  'command_order_bill.address_customer, '+
   'command_order_bill.phone_customer, '+
   'command_order_bill.mobile_customer, '+
   'command_order_bill.email_customer, '+
-  'command_order_bill.creation_date_customer, '+
+  'command_order_bill.created_at_customer, '+
   'command_order_bill.id_user_custo, '+
   'command_order_bill.id_type_user_user_custo, '+
   'command_order_bill.lastname_user_custo, '+
@@ -77,7 +78,7 @@ Bill.findById = (billId, result) => {
       'command_order.id AS id_command_order, '+
       'command_order.id_quotation AS id_quotation_command_order, '+
       'command_order.id_priority AS id_priority_command_order, '+
-      'command_order.closure_date AS closure_date_command_order, '+
+      'command_order.closed_at AS closed_at_command_order, '+
       'command_order.is_delivered AS is_delivered_command_order, '+
       'priority.id AS id_priority, ' +
       'priority.name AS name_priority, ' +  
@@ -86,7 +87,7 @@ Bill.findById = (billId, result) => {
       'quotation_command_order.id_vehicle_quotation, '+
       'quotation_command_order.id_customer_quotation, '+
       'quotation_command_order.is_validquotation, '+
-      'quotation_command_order.date_creation_quotation, '+
+      'quotation_command_order.created_at_quotation, '+
       'quotation_command_order.id_user_quotation, '+
       'quotation_command_order.id_user, '+
       // 'quotation_command_order.id_type_user_user, '+
@@ -107,10 +108,11 @@ Bill.findById = (billId, result) => {
       'quotation_command_order.lastname_customer, '+
       'quotation_command_order.firstname_customer, '+
       'quotation_command_order.city_code_customer, '+
+      'quotation_command_order.address_customer, '+
       'quotation_command_order.phone_customer, '+
       'quotation_command_order.mobile_customer, '+
       'quotation_command_order.email_customer, '+
-      'quotation_command_order.creation_date_customer, '+
+      'quotation_command_order.created_at_customer, '+
       'quotation_command_order.id_user_custo, '+
       'quotation_command_order.id_type_user_user_custo, '+
       'quotation_command_order.lastname_user_custo, '+
@@ -128,7 +130,7 @@ Bill.findById = (billId, result) => {
           'quotation.id_vehicle AS id_vehicle_quotation, '+
           'quotation.id_customer AS id_customer_quotation, '+
           'quotation.is_valid AS is_validquotation, '+
-          'quotation.date_creation AS date_creation_quotation, '+
+          'quotation.created_at AS created_at_quotation, '+
           'quotation.id_user AS id_user_quotation, '+
           'USER.id AS id_user, '+
           // 'USER.id_type_user AS id_type_user_user, '+
@@ -149,10 +151,11 @@ Bill.findById = (billId, result) => {
           'customer.lastname AS lastname_customer, '+
           'customer.firstname AS firstname_customer, '+
           'customer.city_code AS city_code_customer, '+
+          'customer.address AS address_customer, '+
           'customer.phone AS phone_customer, '+
           'customer.mobile AS mobile_customer, '+
           'customer.email AS email_customer, '+
-          'customer.creation_date AS creation_date_customer, '+
+          'customer.created_at AS created_at_customer, '+
           'user_custo.id_user_custo, '+
           'user_custo.id_type_user_user_custo, '+
           'user_custo.lastname_user_custo, '+
@@ -195,7 +198,7 @@ Bill.findById = (billId, result) => {
   `LEFT JOIN priority ON priority.id = command_order.id_priority `+
 ') command_order_bill '+
 'ON '+
-  `command_order_bill.id_command_order = bill.id_order `+
+  `command_order_bill.id_command_order = bill.id_command_order `+
   `WHERE id = ${billId}`, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -216,14 +219,14 @@ Bill.findById = (billId, result) => {
 Bill.getAll = (result) => {
   sql.query('SELECT '+
   'bill.id, '+
-  'bill.id_order, '+
-  'bill.creation_date, '+
+  'bill.id_command_order, '+
+  'bill.created_at, '+
   'bill.price_duty_free, '+
   'bill.tva_amount, '+
   'command_order_bill.id_command_order, '+
   'command_order_bill.id_quotation_command_order, '+
   'command_order_bill.id_priority_command_order, '+
-  'command_order_bill.closure_date_command_order, '+
+  'command_order_bill.closed_at_command_order, '+
   'command_order_bill.is_delivered_command_order, '+
   'command_order_bill.id_priority, ' +
   'command_order_bill.name_priority, ' +  
@@ -232,7 +235,7 @@ Bill.getAll = (result) => {
   'command_order_bill.id_vehicle_quotation, '+
   'command_order_bill.id_customer_quotation, '+
   'command_order_bill.is_validquotation, '+
-  'command_order_bill.date_creation_quotation, '+
+  'command_order_bill.created_at_quotation, '+
   'command_order_bill.id_user_quotation, '+
   'command_order_bill.id_user, '+
   'command_order_bill.id_type_user_user, '+
@@ -253,10 +256,11 @@ Bill.getAll = (result) => {
   'command_order_bill.lastname_customer, '+
   'command_order_bill.firstname_customer, '+
   'command_order_bill.city_code_customer, '+
+  'command_order_bill.address_customer, '+
   'command_order_bill.phone_customer, '+
   'command_order_bill.mobile_customer, '+
   'command_order_bill.email_customer, '+
-  'command_order_bill.creation_date_customer, '+
+  'command_order_bill.created_at_customer, '+
   'command_order_bill.id_user_custo, '+
   // 'command_order_bill.id_type_user_user_custo, '+
   'command_order_bill.lastname_user_custo, '+
@@ -273,7 +277,7 @@ Bill.getAll = (result) => {
       'command_order.id AS id_command_order, '+
       'command_order.id_quotation AS id_quotation_command_order, '+
       'command_order.id_priority AS id_priority_command_order, '+
-      'command_order.closure_date AS closure_date_command_order, '+
+      'command_order.closed_at AS closed_at_command_order, '+
       'command_order.is_delivered AS is_delivered_command_order, '+
       'priority.id AS id_priority, ' +
       'priority.name AS name_priority, ' +  
@@ -282,7 +286,7 @@ Bill.getAll = (result) => {
       'quotation_command_order.id_vehicle_quotation, '+
       'quotation_command_order.id_customer_quotation, '+
       'quotation_command_order.is_validquotation, '+
-      'quotation_command_order.date_creation_quotation, '+
+      'quotation_command_order.created_at_quotation, '+
       'quotation_command_order.id_user_quotation, '+
       'quotation_command_order.id_user, '+
       // 'quotation_command_order.id_type_user_user, '+
@@ -303,10 +307,11 @@ Bill.getAll = (result) => {
       'quotation_command_order.lastname_customer, '+
       'quotation_command_order.firstname_customer, '+
       'quotation_command_order.city_code_customer, '+
+      'quotation_command_order.address_customer, '+
       'quotation_command_order.phone_customer, '+
       'quotation_command_order.mobile_customer, '+
       'quotation_command_order.email_customer, '+
-      'quotation_command_order.creation_date_customer, '+
+      'quotation_command_order.created_at_customer, '+
       'quotation_command_order.id_user_custo, '+
       // 'quotation_command_order.id_type_user_user_custo, '+
       'quotation_command_order.lastname_user_custo, '+
@@ -324,7 +329,7 @@ Bill.getAll = (result) => {
           'quotation.id_vehicle AS id_vehicle_quotation, '+
           'quotation.id_customer AS id_customer_quotation, '+
           'quotation.is_valid AS is_validquotation, '+
-          'quotation.date_creation AS date_creation_quotation, '+
+          'quotation.created_at AS created_at_quotation, '+
           'quotation.id_user AS id_user_quotation, '+
           'USER.id AS id_user, '+
           // 'USER.id_type_user AS id_type_user_user, '+
@@ -345,10 +350,11 @@ Bill.getAll = (result) => {
           'customer.lastname AS lastname_customer, '+
           'customer.firstname AS firstname_customer, '+
           'customer.city_code AS city_code_customer, '+
+          'customer.address AS address_customer, '+
           'customer.phone AS phone_customer, '+
           'customer.mobile AS mobile_customer, '+
           'customer.email AS email_customer, '+
-          'customer.creation_date AS creation_date_customer, '+
+          'customer.created_at AS created_at_customer, '+
           'user_custo.id_user_custo, '+
           // 'user_custo.id_type_user_user_custo, '+
           'user_custo.lastname_user_custo, '+
@@ -391,7 +397,7 @@ Bill.getAll = (result) => {
   `LEFT JOIN priority ON priority.id = command_order.id_priority `+
 ') command_order_bill '+
 'ON '+
-  `command_order_bill.id_command_order = bill.id_order`, (err, res) => {
+  `command_order_bill.id_command_order = bill.id_command_order`, (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(null, err);
@@ -405,8 +411,8 @@ Bill.getAll = (result) => {
 
 Bill.updateById = (id, bill, result) => {
   sql.query(
-    'UPDATE bill SET id_order = ?, creation_date = ?, price_duty_free = ?, tva_amount = ? WHERE id = ?',
-    [bill.id_order, bill.creation_date, bill.price_duty_free, bill.tva_amount, id],
+    'UPDATE bill SET id_command_order = ?, created_at = ?, price_duty_free = ?, tva_amount = ? WHERE id = ?',
+    [bill.id_command_order, bill.created_at, bill.price_duty_free, bill.tva_amount, id],
     (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -475,10 +481,11 @@ function setBill(res) {
       lastname: obj.lastname_customer,
       firstname: obj.firstname_customer,
       city_code: obj.city_code_customer,
+      address: obj.address_customer,
       phone: obj.phone_customer,
       mobile: obj.mobile_customer,
       email: obj.email_customer,
-      creation_date: obj.creation_date_customer,
+      created_at: obj.created_at_customer,
     };
 
 
@@ -507,7 +514,7 @@ function setBill(res) {
       vehicule: vehicule,
       client: customerG,
       valid: obj.is_validquotation,
-      creation_date: obj.date_creation_quotation
+      created_at: obj.created_at_quotation
     };
 
 
@@ -520,15 +527,15 @@ function setBill(res) {
       id: obj.id_command_order,
       quotation: quotation,
       priority : priority,
-      closure_date : obj.closure_date_command_order,
+      closed_at : obj.closed_at_command_order,
       is_delivred : obj.is_delivered_command_order
     };
 
 
     const bill = {
       id: obj.id,
-      order : commandOrder,
-      creation_date : obj.creation_date,
+      commandOrder : commandOrder,
+      created_at : obj.created_at,
       price_duty_free : obj.price_duty_free,
       tva_amount : obj.tva_amount
     };

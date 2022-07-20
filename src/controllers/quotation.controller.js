@@ -15,7 +15,7 @@ exports.create = (req, res) => {
     id_vehicle: req.body.id_vehicle,
     id_customer: req.body.id_customer,
     is_valid: req.body.is_valid,
-    date_creation: req.body.date_creation
+    created_at: req.body.created_at
   });
 
   // Save Quotation in the database

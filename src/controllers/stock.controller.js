@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   const stock = new Stock({
     id_vehicle: req.body.id_vehicle,
     number_stock: req.body.number_stock,
-    date_update: req.body.date_update ? req.body.date_update : null
+    updated_at: req.body.updated_at ? req.body.updated_at : null
   });
 
   // Save Stock in the database

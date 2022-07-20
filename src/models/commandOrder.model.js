@@ -4,7 +4,7 @@ const sql = require('./db.js');
 const CommandOrder = function (commandOrder) {
   this.id_quotation = commandOrder.id_quotation;
   this.id_priority = commandOrder.id_priority;
-  this.closure_date = commandOrder.closure_date;
+  this.closed_at = commandOrder.closed_at;
   this.is_delivered = commandOrder.is_delivered;
 };
 
@@ -26,7 +26,7 @@ CommandOrder.findById = (commandOrderId, result) => {
   `command_order.id AS id_command_order, ` +
   `command_order.id_quotation AS id_quotation_command_order, ` +
   `command_order.id_priority AS id_priority_command_order, ` +
-  `command_order.closure_date AS closure_date_command_order, ` +
+  `command_order.closed_at AS closed_at_command_order, ` +
   `command_order.is_delivered AS is_delivered_command_order, ` +
   'priority.id AS id_priority, ' +
   'priority.name AS name_priority, ' +  
@@ -34,7 +34,7 @@ CommandOrder.findById = (commandOrderId, result) => {
   `quotation_command_order.id_vehicle_quotation, ` +
   `quotation_command_order.id_customer_quotation, ` + 
   `quotation_command_order.is_validquotation, ` +
-  `quotation_command_order.date_creation_quotation, ` +
+  `quotation_command_order.created_at_quotation, ` +
   `quotation_command_order.id_user_quotation, ` +
   `quotation_command_order.id_user, ` +
   // `quotation_command_order.id_type_user_user, ` +
@@ -54,10 +54,11 @@ CommandOrder.findById = (commandOrderId, result) => {
   `quotation_command_order.lastname_customer, ` +
   `quotation_command_order.firstname_customer, ` +
   `quotation_command_order.city_code_customer, ` +
+  `quotation_command_order.address_customer, ` +
   `quotation_command_order.phone_customer, ` +
   `quotation_command_order.mobile_customer, ` +
   `quotation_command_order.email_customer, ` +
-  `quotation_command_order.creation_date_customer, ` +
+  `quotation_command_order.created_at_customer, ` +
   `quotation_command_order.id_user_custo, ` +
   `quotation_command_order.id_type_user_user_custo, ` +
   `quotation_command_order.lastname_user_custo, ` +
@@ -75,7 +76,7 @@ CommandOrder.findById = (commandOrderId, result) => {
       `quotation.id_vehicle AS id_vehicle_quotation, ` +
       `quotation.id_customer AS id_customer_quotation, ` +
       `quotation.is_valid AS is_validquotation, ` +
-      `quotation.date_creation AS date_creation_quotation, ` +
+      `quotation.created_at AS created_at_quotation, ` +
       `quotation.id_user AS id_user_quotation, ` +
       `USER.id AS id_user, ` +
       // `USER.id_type_user AS id_type_user_user, ` +
@@ -95,10 +96,11 @@ CommandOrder.findById = (commandOrderId, result) => {
       `customer.lastname AS lastname_customer, ` +
       `customer.firstname AS firstname_customer, ` +
       `customer.city_code AS city_code_customer, ` +
+      `customer.address AS address_customer, ` +
       `customer.phone AS phone_customer, ` +
       `customer.mobile AS mobile_customer, ` +
       `customer.email AS email_customer, ` +
-      `customer.creation_date AS creation_date_customer, ` +
+      `customer.created_at AS created_at_customer, ` +
       `user_custo.id_user_custo, ` +
       `user_custo.lastname_user_custo, ` +
       `user_custo.firstname_user_custo, ` +
@@ -161,7 +163,7 @@ CommandOrder.getAll = (result) => {
   `command_order.id AS id_command_order, ` +
   `command_order.id_quotation AS id_quotation_command_order, ` +
   `command_order.id_priority AS id_priority_command_order, ` +
-  `command_order.closure_date AS closure_date_command_order, ` +
+  `command_order.closed_at AS closed_at_command_order, ` +
   `command_order.is_delivered AS is_delivered_command_order, ` +
   'priority.id AS id_priority, ' +
   'priority.name AS name_priority, ' +  
@@ -169,7 +171,7 @@ CommandOrder.getAll = (result) => {
   `quotation_command_order.id_vehicle_quotation, ` +
   `quotation_command_order.id_customer_quotation, ` + 
   `quotation_command_order.is_validquotation, ` +
-  `quotation_command_order.date_creation_quotation, ` +
+  `quotation_command_order.created_at_quotation, ` +
   `quotation_command_order.id_user_quotation, ` +
   `quotation_command_order.id_user, ` +
   // `quotation_command_order.id_type_user_user, ` +
@@ -189,10 +191,11 @@ CommandOrder.getAll = (result) => {
   `quotation_command_order.lastname_customer, ` +
   `quotation_command_order.firstname_customer, ` +
   `quotation_command_order.city_code_customer, ` +
+  `quotation_command_order.address_customer, ` +
   `quotation_command_order.phone_customer, ` +
   `quotation_command_order.mobile_customer, ` +
   `quotation_command_order.email_customer, ` +
-  `quotation_command_order.creation_date_customer, ` +
+  `quotation_command_order.created_at_customer, ` +
   `quotation_command_order.id_user_custo, ` +
   `quotation_command_order.id_type_user_user_custo, ` +
   `quotation_command_order.lastname_user_custo, ` +
@@ -210,7 +213,7 @@ CommandOrder.getAll = (result) => {
       `quotation.id_vehicle AS id_vehicle_quotation, ` +
       `quotation.id_customer AS id_customer_quotation, ` +
       `quotation.is_valid AS is_validquotation, ` +
-      `quotation.date_creation AS date_creation_quotation, ` +
+      `quotation.created_at AS created_at_quotation, ` +
       `quotation.id_user AS id_user_quotation, ` +
       `USER.id AS id_user, ` +
       // `USER.id_type_user AS id_type_user_user, ` +
@@ -230,10 +233,11 @@ CommandOrder.getAll = (result) => {
       `customer.lastname AS lastname_customer, ` +
       `customer.firstname AS firstname_customer, ` +
       `customer.city_code AS city_code_customer, ` +
+      `customer.address AS address_customer, ` +
       `customer.phone AS phone_customer, ` +
       `customer.mobile AS mobile_customer, ` +
       `customer.email AS email_customer, ` +
-      `customer.creation_date AS creation_date_customer, ` +
+      `customer.created_at AS created_at_customer, ` +
       `user_custo.id_user_custo, ` +
       `user_custo.lastname_user_custo, ` +
       `user_custo.firstname_user_custo, ` +
@@ -286,11 +290,11 @@ CommandOrder.getAll = (result) => {
 
 CommandOrder.updateById = (id, commandOrder, result) => {
   sql.query(
-    'UPDATE command_order SET id_quotation = ?, id_priority = ?, closure_date = ?, is_delivered = ? WHERE id = ?',
+    'UPDATE command_order SET id_quotation = ?, id_priority = ?, closed_at = ?, is_delivered = ? WHERE id = ?',
     [
       commandOrder.id_quotation,
       commandOrder.id_priority,
-      commandOrder.closure_date,
+      commandOrder.closed_at,
       commandOrder.is_delivered,
       id,
     ],
@@ -362,10 +366,11 @@ function setCommandOrder(res) {
       lastname: obj.lastname_customer,
       firstname: obj.firstname_customer,
       city_code: obj.city_code_customer,
+      address: obj.address_customer,
       phone: obj.phone_customer,
       mobile: obj.mobile_customer,
       email: obj.email_customer,
-      creation_date: obj.creation_date_customer,
+      created_at: obj.created_at_customer,
     };
 
 
@@ -394,7 +399,7 @@ function setCommandOrder(res) {
       vehicule: vehicule,
       client: customerG,
       valid: obj.is_validquotation,
-      creation_date: obj.date_creation_quotation
+      created_at: obj.created_at_quotation
     };
 
 
@@ -407,7 +412,7 @@ function setCommandOrder(res) {
       id: obj.id_command_order,
       quotation: quotation,
       priority : priority,
-      closure_date : obj.closure_date_command_order,
+      closed_at : obj.closed_at_command_order,
       is_delivered : obj.is_delivered_command_order
     };
 
