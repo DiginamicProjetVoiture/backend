@@ -60,7 +60,7 @@ exports.findOne = (req, res) => {
 
 // Find a single User with his email
 exports.findByEmail = (req, res) => {
-  User.findByEmail((err, data) => {
+  User.findByEmail(req.params.userEmail,(err, data) => {
     if (err) {
       if (err.kind === 'not_found') {
         res.status(404).send({
