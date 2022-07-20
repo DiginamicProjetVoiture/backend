@@ -204,8 +204,8 @@ Bill.findById = (billId, result) => {
       return;
     }
     if (res.length) {
-      console.log('found bill: ', res[0]);
       setBill(res);
+      console.log('found bill: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -400,8 +400,8 @@ Bill.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('bill: ', res);
     setBill(res);
+    console.log('bill: ', res);
     result(null, res);
   });
 };

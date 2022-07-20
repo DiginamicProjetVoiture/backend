@@ -34,8 +34,8 @@ Stock.findById = (stockId, result) => {
         return;
       }
       if (res.length) {
-        console.log('found stock: ', res[0]);
         setStock(res);
+        console.log('found stock: ', res[0]);
         result(null, res[0]);
         return;
       }

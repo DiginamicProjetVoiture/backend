@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.get("/users/:userId", user.findOne);
 
     // Retrieve a single product with userId
-    app.get("/:userEmail", user.findByEmail);
+    app.get("/login/:userEmail", user.findByEmail);
   
     // Update a product with userId
     app.put("/users/:userId", user.update);

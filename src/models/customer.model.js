@@ -39,10 +39,8 @@ Customer.findById = (customerId, result) => {
       return;
     }
     if (res.length) {
-      console.log('found customer: ', res[0]);
-
       setCustomer(res);
-
+      console.log('found customer: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -62,11 +60,8 @@ Customer.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('customer: ', res);
-
-    
     setCustomer(res);
-
+    console.log('customer: ', res);
     result(null, res);
   });
 };

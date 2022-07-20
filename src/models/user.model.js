@@ -35,8 +35,8 @@ User.findById = (userId, result) => {
       return;
     }
     if (res.length) {
-      console.log('found user: ', res[0]);
       setUser(res);
+      console.log('found user: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -56,8 +56,8 @@ User.findByEmail = (emailUser, result) => {
       return;
     }
     if (res.length) {
-      console.log('found user: ', res[0]);
       setUser(res);
+      console.log('found user: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -78,8 +78,8 @@ User.getAll = (result) => {
         result(null, err);
         return;
       }
-      console.log('user: ', res);
       setUser(res);
+      console.log('user: ', res);
       result(null, res);
     }
   );

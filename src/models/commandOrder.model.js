@@ -147,9 +147,8 @@ CommandOrder.findById = (commandOrderId, result) => {
       return;
     }
     if (res.length) {
-      // console.log('found commandOrder: ', res[0]);
-
       setCommandOrder(res);
+      console.log('found commandOrder: ', res[0]);
       result(null, res[0]);
       return;
     }
@@ -282,8 +281,8 @@ CommandOrder.getAll = (result) => {
       result(null, err);
       return;
     }
-    // console.log('commandOrder: ', res);
     setCommandOrder(res);
+    console.log('commandOrder: ', res);
     result(null, res);
   });
 };

@@ -95,8 +95,8 @@ Quotation.findById = (quotationId, result) => {
         return;
       }
       if (res.length) {
-        console.log('found quotation: ', res[0]);
         setQuotation(res)
+        console.log('found quotation: ', res[0]);
         result(null, res[0]);
         return;
       }
@@ -178,9 +178,8 @@ Quotation.getAll = (result) => {
         return;
       }
 
-      setQuotation(res);
-
       console.log('quotation: ', res);
+      setQuotation(res);
       result(null, res);
     }
   );
