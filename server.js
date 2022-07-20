@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const userController = require('./src/controllers/user.controller.js')
-
 const app = express();
 const port = 5000;
 
@@ -19,11 +17,6 @@ app.all('*', (req, res, next) => {
   );
   next();
 });
-
-app.get('/', (req, res) => {
-  res.send(`${new Date().toISOString().slice(0, 19).replace('T', ' ')}`)
-  // console.log(`users`, userController.findAll());
-})
 
 require("./src/routes/typeUser.routes.js")(app);
 require("./src/routes/user.routes.js")(app);

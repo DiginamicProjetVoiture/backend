@@ -36,10 +36,28 @@ User.findById = (userId, result) => {
     }
     if (res.length) {
       console.log('found user: ', res[0]);
-
       setUser(res);
+      result(null, res[0]);
+      return;
+    }
+    // not found User with the id
+    result({ kind: 'not_found' }, null);
+  });
+};
 
-
+User.findByEmail = (emailUser, result) => {
+  sql.query(`SELECT user.id, user.lastname, user.firstname, user.email, user.password, user.is_activated, type_user.id AS id_type_user, type_user.name AS name_type_user `+
+  `FROM user `+
+  `LEFT JOIN type_user ON user.id_type_user = type_user.id ` +
+  `WHERE user.email = ${emailUser}`, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(err, null);
+      return;
+    }
+    if (res.length) {
+      console.log('found user: ', res[0]);
+      setUser(res);
       result(null, res[0]);
       return;
     }
