@@ -14,14 +14,15 @@ exports.create = (req, res) => {
     id_quotation: req.body.id_quotation,
     id_priority: req.body.id_priority,
     closed_at: req.body.closed_at,
-    is_delivered: req.body.is_delivered
+    is_delivered: req.body.is_delivered,
   });
 
   // Save CommandOrder in the database
   CommandOrder.create(commandOrder, (err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || 'Some error occurred while creating the CommandOrder.',
+        message:
+          err.message || 'Some error occurred while creating the CommandOrder.',
       });
     else res.send(data);
   });
@@ -32,10 +33,10 @@ exports.findAll = (req, res) => {
   CommandOrder.getAll((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || 'Some error occurred while retrieving CommandOrders.',
+        message:
+          err.message || 'Some error occurred while retrieving CommandOrders.',
       });
     else res.send(data);
-    
   });
 };
 
@@ -49,10 +50,15 @@ exports.findOne = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: 'Error retrieving CommandOrder with id ' + req.params.commandOrderId,
+          message:
+            'Error retrieving CommandOrder with id ' +
+            req.params.commandOrderId,
         });
       }
-    } else res.send(data);
+    } else {
+      console.log(`data`, data);
+      res.send(data);
+    }
   });
 };
 
@@ -64,19 +70,27 @@ exports.update = (req, res) => {
       message: 'Content can not be empty!',
     });
   }
-  CommandOrder.updateById(req.params.commandOrderId, new CommandOrder(req.body), (err, data) => {
-    if (err) {
-      if (err.kind === 'not_found') {
-        res.status(404).send({
-          message: `Not found CommandOrder with id ${req.params.commandOrderId}.`,
-        });
-      } else {
-        res.status(500).send({
-          message: 'Error updating CommandOrder with id ' + req.params.commandOrderId,
-        });
-      }
-    } else res.send(data);
-  });
+
+  CommandOrder.updateById(
+    req.params.commandOrderId,
+    // getOlderCommandOrder(req.params.commandOrderId),
+    new CommandOrder(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === 'not_found') {
+          res.status(404).send({
+            message: `Not found CommandOrder with id ${req.params.commandOrderId}.`,
+          });
+        } else {
+          res.status(500).send({
+            message:
+              'Error updating CommandOrder with id ' +
+              req.params.commandOrderId,
+          });
+        }
+      } else res.send(data);
+    }
+  );
 };
 
 // Delete a CommandOrder with the specified commandOrderId in the request
@@ -89,7 +103,9 @@ exports.delete = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: 'Could not delete CommandOrder with id ' + req.params.commandOrderId,
+          message:
+            'Could not delete CommandOrder with id ' +
+            req.params.commandOrderId,
         });
       }
     } else res.send({ message: `CommandOrder was deleted successfully!` });
@@ -101,8 +117,21 @@ exports.deleteAll = (req, res) => {
   CommandOrder.removeAll((err, data) => {
     if (err)
       res.status(500).send({
-        message: err.message || 'Some error occurred while removing all CommandOrder.',
+        message:
+          err.message || 'Some error occurred while removing all CommandOrder.',
       });
     else res.send({ message: `All CommandOrder were deleted successfully!` });
   });
 };
+
+// function getOlderCommandOrder(commandOrderId) {
+//   let varToReturn = null;
+//   await CommandOrder.findById(commandOrderId, (err, data) => {
+//     if (!err) {
+//       console.log(`data`,data);
+//       varToReturn = data;
+//     }
+//   });
+//   console.log(`varToReturn`,varToReturn);
+//   return varToReturn
+// }

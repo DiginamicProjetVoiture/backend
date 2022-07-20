@@ -13,7 +13,6 @@ exports.create = (req, res) => {
   const bill = new Bill({
     id_command_order: req.body.id_command_order,
     created_at: req.body.created_at,
-    price_duty_free: req.body.price_duty_free,
     tva_amount: req.body.tva_amount
   });
 

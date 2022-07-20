@@ -147,7 +147,7 @@ CommandOrder.findById = (commandOrderId, result) => {
       return;
     }
     if (res.length) {
-      console.log('found commandOrder: ', res[0]);
+      // console.log('found commandOrder: ', res[0]);
 
       setCommandOrder(res);
       result(null, res[0]);
@@ -282,13 +282,19 @@ CommandOrder.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('commandOrder: ', res);
+    // console.log('commandOrder: ', res);
     setCommandOrder(res);
     result(null, res);
   });
 };
 
-CommandOrder.updateById = (id, commandOrder, result) => {
+CommandOrder.updateById = (id, /*olderCommandOrder,*/ commandOrder, result) => {
+// console.log(`olderCommandOrder`,olderCommandOrder);
+// console.log(`commandOrder`,commandOrder);
+//   if(olderCommandOrder.is_delivered == 0 && commandOrder.is_delivered == 1){
+//     console.log(`is_delivered `, "changed");
+//     // commandOrder.closed_at = new Date().toISOString().slice(0, 19).replace('T', ' '); 
+//   }
   sql.query(
     'UPDATE command_order SET id_quotation = ?, id_priority = ?, closed_at = ?, is_delivered = ? WHERE id = ?',
     [
@@ -397,8 +403,8 @@ function setCommandOrder(res) {
       id: obj.id_quotation,
       user: userCustomerQuotation,
       vehicule: vehicule,
-      client: customerG,
-      valid: obj.is_validquotation,
+      customer: customerG,
+      is_valid: obj.is_validquotation,
       created_at: obj.created_at_quotation
     };
 

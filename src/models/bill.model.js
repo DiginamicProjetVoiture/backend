@@ -4,7 +4,6 @@ const sql = require('./db.js');
 const Bill = function (bill) {
   this.id_command_order = bill.id_command_order;
   this.created_at = bill.created_at;
-  this.price_duty_free = bill.price_duty_free;
   this.tva_amount = bill.tva_amount;
 };
 
@@ -25,7 +24,6 @@ Bill.findById = (billId, result) => {
   'bill.id, '+
   'bill.id_command_order, '+
   'bill.created_at, '+
-  'bill.price_duty_free, '+
   'bill.tva_amount, '+
   'command_order_bill.id_command_order, '+
   'command_order_bill.id_quotation_command_order, '+
@@ -221,7 +219,6 @@ Bill.getAll = (result) => {
   'bill.id, '+
   'bill.id_command_order, '+
   'bill.created_at, '+
-  'bill.price_duty_free, '+
   'bill.tva_amount, '+
   'command_order_bill.id_command_order, '+
   'command_order_bill.id_quotation_command_order, '+
@@ -411,8 +408,8 @@ Bill.getAll = (result) => {
 
 Bill.updateById = (id, bill, result) => {
   sql.query(
-    'UPDATE bill SET id_command_order = ?, created_at = ?, price_duty_free = ?, tva_amount = ? WHERE id = ?',
-    [bill.id_command_order, bill.created_at, bill.price_duty_free, bill.tva_amount, id],
+    'UPDATE bill SET id_command_order = ?, created_at = ?, tva_amount = ? WHERE id = ?',
+    [bill.id_command_order, bill.created_at, bill.tva_amount, id],
     (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -512,8 +509,8 @@ function setBill(res) {
       id: obj.id_quotation,
       user: userCustomerQuotation,
       vehicule: vehicule,
-      client: customerG,
-      valid: obj.is_validquotation,
+      customer: customerG,
+      is_valid: obj.is_validquotation,
       created_at: obj.created_at_quotation
     };
 
@@ -536,7 +533,6 @@ function setBill(res) {
       id: obj.id,
       commandOrder : commandOrder,
       created_at : obj.created_at,
-      price_duty_free : obj.price_duty_free,
       tva_amount : obj.tva_amount
     };
 

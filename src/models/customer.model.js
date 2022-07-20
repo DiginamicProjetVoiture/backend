@@ -14,6 +14,7 @@ const Customer = function (customer) {
 };
 
 Customer.create = (newCustomer, result) => {
+  newCustomer.created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query('INSERT INTO customer SET ?', newCustomer, (err, res) => {
     if (err) {
       console.log('error: ', err);

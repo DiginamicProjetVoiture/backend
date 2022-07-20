@@ -8,6 +8,7 @@ const Stock = function (stock) {
 };
 
 Stock.create = (newStock, result) => {
+  newStock.updated_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query('INSERT INTO stock SET ?', newStock, (err, res) => {
     if (err) {
       console.log('error: ', err);
@@ -65,9 +66,10 @@ Stock.getAll = (result) => {
 };
 
 Stock.updateById = (id, stock, result) => {
+  stock.updated_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query(
     'UPDATE stock SET id_vehicle = ?, number_stock = ?, updated_at = ? WHERE id = ?',
-    [stock.id_vehicle, stock.number_stock, stock.update_date, id],
+    [stock.id_vehicle, stock.number_stock, stock.updated_at, id],
     (err, res) => {
       if (err) {
         console.log('error: ', err);

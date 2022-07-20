@@ -10,6 +10,7 @@ const Quotation = function (quotation) {
 };
 
 Quotation.create = (newQuotation, result) => {
+  newQuotation.created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query('INSERT INTO quotation SET ?', newQuotation, (err, res) => {
     if (err) {
       console.log('error: ', err);
