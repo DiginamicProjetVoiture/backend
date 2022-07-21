@@ -112,6 +112,23 @@ exports.delete = (req, res) => {
   });
 };
 
+// Delete a Stock with the specified stockId in the request
+exports.deleteByVehicle = (req, res) => {
+  Stock.deleteByVehicle(req.params.stockId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found Stock with id ${req.params.stockId}.`,
+        });
+      } else {
+        res.status(500).send({
+          message: 'Could not delete Stock with id ' + req.params.stockId,
+        });
+      }
+    } else res.send({ message: `Stock was deleted successfully!` });
+  });
+};
+
 // Delete all Stocks from the database.
 exports.deleteAll = (req, res) => {
   Stock.removeAll((err, data) => {

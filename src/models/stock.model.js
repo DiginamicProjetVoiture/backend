@@ -129,6 +129,23 @@ Stock.remove = (id, result) => {
   });
 };
 
+Stock.deleteByVehicle = (id_vehicle, result) => {
+  sql.query('DELETE FROM stock WHERE id_vehicle = ?', id_vehicle, (err, res) => {
+    if (err) {
+      console.log('error: ', err);
+      result(null, err);
+      return;
+    }
+    if (res.affectedRows == 0) {
+      // not found stock with the id
+      result({ kind: 'not_found' }, null);
+      return;
+    }
+    console.log('deleted stock with id_vehicle: ', id_vehicle);
+    result(null, res);
+  });
+};
+
 Stock.removeAll = (result) => {
   sql.query('DELETE FROM stock', (err, res) => {
     if (err) {
