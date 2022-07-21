@@ -498,7 +498,7 @@ function setBill(res) {
       is_activated: obj.is_activated_user,
     };
 
-    const vehicule = {
+    const vehicle = {
       id: obj.id_vehicle,
       price: obj.price_vehicle,
       name: obj.name_vehicle,
@@ -508,7 +508,7 @@ function setBill(res) {
     const quotation = {
       id: obj.id_quotation,
       user: userCustomerQuotation,
-      vehicule: vehicule,
+      vehicle: vehicle,
       customer: customerG,
       is_valid: obj.is_validquotation,
       created_at: obj.created_at_quotation
