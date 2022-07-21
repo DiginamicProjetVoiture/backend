@@ -78,13 +78,13 @@ CommandOrder.findById = (commandOrderId, result) => {
       `quotation.is_valid AS is_validquotation, ` +
       `quotation.created_at AS created_at_quotation, ` +
       `quotation.id_user AS id_user_quotation, ` +
-      `USER.id AS id_user, ` +
-      // `USER.id_type_user AS id_type_user_user, ` +
-      `USER.lastname AS lastname_user, ` +
-      `USER.firstname AS firstname_user, ` +
-      `USER.email AS email_user, ` +
-      `USER.password AS password_user, ` +
-      `USER.is_activated AS is_activated_user, ` +
+      `user.id AS id_user, ` +
+      // `user.id_type_user AS id_type_user_user, ` +
+      `user.lastname AS lastname_user, ` +
+      `user.firstname AS firstname_user, ` +
+      `user.email AS email_user, ` +
+      `user.password AS password_user, ` +
+      `user.is_activated AS is_activated_user, ` +
       'type_user.id id_type_user_user, ' +
       'type_user.name AS name_type_user_user, ' +
       `vehicle.id AS id_vehicle, ` +
@@ -111,27 +111,27 @@ CommandOrder.findById = (commandOrderId, result) => {
       'user_custo.name_type_user_user_custo ' +
   `FROM ` +
       `quotation ` +
-  `LEFT JOIN USER ON quotation.id_user = USER.id ` +
+  `LEFT JOIN user ON quotation.id_user = user.id ` +
   `LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id ` +
   `LEFT JOIN customer ON quotation.id_customer = customer.id ` +
   `LEFT JOIN( ` +
       `SELECT ` +
-          `USER.id AS id_user_custo, ` +
-          // `USER.id_type_user AS id_type_user_user_custo, ` +
-          `USER.lastname AS lastname_user_custo, ` +
-          `USER.firstname AS firstname_user_custo, ` +
-          `USER.email AS email_user_custo, ` +
-          `USER.password AS password_user_custo, ` +
-          `USER.is_activated AS is_activated_user_custo, ` +
+          `user.id AS id_user_custo, ` +
+          // `user.id_type_user AS id_type_user_user_custo, ` +
+          `user.lastname AS lastname_user_custo, ` +
+          `user.firstname AS firstname_user_custo, ` +
+          `user.email AS email_user_custo, ` +
+          `user.password AS password_user_custo, ` +
+          `user.is_activated AS is_activated_user_custo, ` +
           'type_user.id AS id_type_user_user_custo, ' +
           'type_user.name AS name_type_user_user_custo ' +
       `FROM ` +
-          `USER, ` +
+          `user, ` +
           `customer, ` +
           'type_user  ' +
       `WHERE ` +
-          `USER.id = customer.id_user ` +
-          'AND type_user.id = USER.id_type_user ' +
+          `user.id = customer.id_user ` +
+          'AND type_user.id = user.id_type_user ' +
   `) user_custo ` +
 `ON ` +
   `user_custo.id_user_custo = customer.id_user ` +
@@ -214,13 +214,13 @@ CommandOrder.getAll = (result) => {
       `quotation.is_valid AS is_validquotation, ` +
       `quotation.created_at AS created_at_quotation, ` +
       `quotation.id_user AS id_user_quotation, ` +
-      `USER.id AS id_user, ` +
-      // `USER.id_type_user AS id_type_user_user, ` +
-      `USER.lastname AS lastname_user, ` +
-      `USER.firstname AS firstname_user, ` +
-      `USER.email AS email_user, ` +
-      `USER.password AS password_user, ` +
-      `USER.is_activated AS is_activated_user, ` +
+      `user.id AS id_user, ` +
+      // `user.id_type_user AS id_type_user_user, ` +
+      `user.lastname AS lastname_user, ` +
+      `user.firstname AS firstname_user, ` +
+      `user.email AS email_user, ` +
+      `user.password AS password_user, ` +
+      `user.is_activated AS is_activated_user, ` +
       'type_user.id id_type_user_user, ' +
       'type_user.name AS name_type_user_user, ' +
       `vehicle.id AS id_vehicle, ` +
@@ -247,27 +247,27 @@ CommandOrder.getAll = (result) => {
       'user_custo.name_type_user_user_custo ' +
   `FROM ` +
       `quotation ` +
-  `LEFT JOIN USER ON quotation.id_user = USER.id ` +
+  `LEFT JOIN user ON quotation.id_user = user.id ` +
   `LEFT JOIN vehicle ON quotation.id_vehicle = vehicle.id ` +
   `LEFT JOIN customer ON quotation.id_customer = customer.id ` +
   `LEFT JOIN( ` +
       `SELECT ` +
-          `USER.id AS id_user_custo, ` +
-          // `USER.id_type_user AS id_type_user_user_custo, ` +
-          `USER.lastname AS lastname_user_custo, ` +
-          `USER.firstname AS firstname_user_custo, ` +
-          `USER.email AS email_user_custo, ` +
-          `USER.password AS password_user_custo, ` +
-          `USER.is_activated AS is_activated_user_custo, ` +
+          `user.id AS id_user_custo, ` +
+          // `user.id_type_user AS id_type_user_user_custo, ` +
+          `user.lastname AS lastname_user_custo, ` +
+          `user.firstname AS firstname_user_custo, ` +
+          `user.email AS email_user_custo, ` +
+          `user.password AS password_user_custo, ` +
+          `user.is_activated AS is_activated_user_custo, ` +
           'type_user.id AS id_type_user_user_custo, ' +
           'type_user.name AS name_type_user_user_custo ' +
       `FROM ` +
-          `USER, ` +
+          `user, ` +
           `customer, ` +
           'type_user  ' +
       `WHERE ` +
-          `USER.id = customer.id_user ` +
-          'AND type_user.id = USER.id_type_user ' +
+          `user.id = customer.id_user ` +
+          'AND type_user.id = user.id_type_user ' +
   `) user_custo ` +
 `ON ` +
   `user_custo.id_user_custo = customer.id_user ` +
