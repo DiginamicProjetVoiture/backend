@@ -8,6 +8,7 @@ const Bill = function (bill) {
 };
 
 Bill.create = (newBill, result) => {
+  newBill.created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query('INSERT INTO bill SET ?', newBill, (err, res) => {
     if (err) {
       console.log('error: ', err);

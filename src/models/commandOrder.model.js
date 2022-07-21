@@ -9,6 +9,7 @@ const CommandOrder = function (commandOrder) {
 };
 
 CommandOrder.create = (newCommandOrder, result) => {
+  newCommandOrder.created_at = new Date().toISOString().slice(0, 19).replace('T', ' ');
   sql.query('INSERT INTO command_order SET ?', newCommandOrder, (err, res) => {
     if (err) {
       console.log('error: ', err);
