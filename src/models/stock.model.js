@@ -45,6 +45,31 @@ Stock.findById = (stockId, result) => {
   );
 };
 
+Stock.findByVehicle = (vehicleId, result) => {
+  sql.query(
+    'SELECT stock.id, stock.number_stock, stock.updated_at, ' +
+    'vehicle.id AS id_vehicle, vehicle.name AS vehicle_name, vehicle.brand as vehicle_brand ' +
+      'FROM stock ' +
+      `LEFT JOIN vehicle ON stock.id_vehicle = vehicle.id ` +
+      ` WHERE stock.id_vehicle  = ${vehicleId}`,
+    (err, res) => {
+      if (err) {
+        console.log('error: ', err);
+        result(err, null);
+        return;
+      }
+      if (res.length) {
+        setStock(res);
+        console.log('found stock: ', res[0]);
+        result(null, res[0]);
+        return;
+      }
+      // not found Stock with the id
+      result({ kind: 'not_found' }, null);
+    }
+  );
+};
+
 Stock.getAll = (result) => {
   sql.query(
     'SELECT stock.id, stock.number_stock, stock.updated_at, ' +

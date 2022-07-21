@@ -10,6 +10,9 @@ module.exports = (app) => {
     // Retrieve a single product with stockId
     app.get("/stocks/:stockId", stock.findOne);
   
+    // Retrieve a single product with stockId
+    app.get("/stocks/vehicle/:vehicleId", stock.findByVehicle);
+  
     // Update a product with stockId
     app.put("/stocks/:stockId", stock.update);
   

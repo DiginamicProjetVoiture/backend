@@ -55,6 +55,23 @@ exports.findOne = (req, res) => {
   });
 };
 
+// Find a single Stock with a vehicleId
+exports.findByVehicle = (req, res) => {
+  Stock.findByVehicle(req.params.vehicleId, (err, data) => {
+    if (err) {
+      if (err.kind === 'not_found') {
+        res.status(404).send({
+          message: `Not found Stock with id ${req.params.vehicleId}.`,
+        });
+      } else {
+        res.status(500).send({
+          message: 'Error retrieving Stock with id ' + req.params.vehicleId,
+        });
+      }
+    } else res.send(data);
+  });
+};
+
 // Update a Stock identified by the stockId in the request
 exports.update = (req, res) => {
   // Validate Request
