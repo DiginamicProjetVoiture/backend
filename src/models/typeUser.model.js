@@ -35,7 +35,7 @@ TypeUser.findById = (typeUserId, result) => {
 };
 
 TypeUser.getAll = (result) => {
-  sql.query('SELECT * FROM type_User', (err, res) => {
+  sql.query('SELECT * FROM type_user', (err, res) => {
     if (err) {
       console.log('error: ', err);
       result(null, err);
