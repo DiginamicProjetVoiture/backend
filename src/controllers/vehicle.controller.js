@@ -22,7 +22,7 @@ exports.create = (req, res) => {
       res.status(500).send({
         message: err.message || 'Some error occurred while creating the Vehicle.',
       });
-    else res.send(data);
+    else res.status(201).send(data);
   });
 };
 

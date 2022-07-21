@@ -21,7 +21,7 @@ exports.create = (req, res) => {
         message:
           err.message || 'Some error occurred while creating the Priority.',
       });
-    else res.send(data);
+    else res.status(201).send(data);
   });
 };
 
