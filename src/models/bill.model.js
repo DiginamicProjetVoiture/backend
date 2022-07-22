@@ -402,7 +402,7 @@ Bill.getAll = (result) => {
       return;
     }
     setBill(res);
-    console.log('bill: ', res);
+    // console.log('bill: ', res);
     result(null, res);
   });
 };

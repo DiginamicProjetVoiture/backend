@@ -178,7 +178,7 @@ Quotation.getAll = (result) => {
         return;
       }
 
-      console.log('quotation: ', res);
+      // console.log('quotation: ', res);
       setQuotation(res);
       result(null, res);
     }

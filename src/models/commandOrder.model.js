@@ -283,7 +283,7 @@ CommandOrder.getAll = (result) => {
       return;
     }
     setCommandOrder(res);
-    console.log('commandOrder: ', res);
+    // console.log('commandOrder: ', res);
     result(null, res);
   });
 };

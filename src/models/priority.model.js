@@ -41,7 +41,7 @@ Priority.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('priority: ', res);
+    // console.log('priority: ', res);
     result(null, res);
   });
 };

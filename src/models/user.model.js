@@ -46,6 +46,7 @@ User.findById = (userId, result) => {
 };
 
 User.findByEmail = (emailUser, result) => {
+  console.log(`findByEmail - emailUser`,emailUser);
   sql.query(`SELECT user.id, user.lastname, user.firstname, user.email, user.password, user.is_activated, type_user.id AS id_type_user, type_user.name AS name_type_user `+
   `FROM user `+
   `LEFT JOIN type_user ON user.id_type_user = type_user.id ` +
@@ -79,7 +80,7 @@ User.getAll = (result) => {
         return;
       }
       setUser(res);
-      console.log('user: ', res);
+      // console.log('user: ', res);
       result(null, res);
     }
   );

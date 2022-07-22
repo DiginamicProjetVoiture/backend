@@ -84,7 +84,7 @@ Stock.getAll = (result) => {
       }
 
       setStock(res);
-      console.log('stock: ', res);
+      // console.log('stock: ', res);
       result(null, res);
     }
   );

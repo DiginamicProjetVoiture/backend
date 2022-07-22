@@ -4,14 +4,15 @@ module.exports = (app) => {
     // Create a new product
     app.post("/users", user.create);
   
+    // Retrieve a single product with userId
+    app.get("/users/login/:userEmail", user.findByEmail);
+
     // Retrieve all product
     app.get("/users", user.findAll);
   
     // Retrieve a single product with userId
-    app.get("/users/:userId", user.findOne);
+    // app.get("/users/:userId", user.findOne);
 
-    // Retrieve a single product with userId
-    app.get("/login/:userEmail", user.findByEmail);
   
     // Update a product with userId
     app.put("/users/:userId", user.update);

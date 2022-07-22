@@ -41,7 +41,7 @@ TypeUser.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('typeUser: ', res);
+    // console.log('typeUser: ', res);
     result(null, res);
   });
 };

@@ -43,7 +43,7 @@ Vehicle.getAll = (result) => {
       result(null, err);
       return;
     }
-    console.log('vehicle: ', res);
+    // console.log('vehicle: ', res);
     result(null, res);
   });
 };
