@@ -17,6 +17,6 @@ module.exports = (app) => {
     app.delete("/commandOrders/:commandOrderId", commandOrder.delete);
   
     // Create a new product
-    app.delete("/commandOrders", commandOrder.deleteAll);
+    // app.delete("/commandOrders", commandOrder.deleteAll);
   };
   

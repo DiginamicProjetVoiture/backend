@@ -17,6 +17,6 @@ module.exports = (app) => {
     app.delete("/typeUsers/:typeUserId", typeUser.delete);
   
     // Create a new product
-    app.delete("/typeUsers", typeUser.deleteAll);
+    // app.delete("/typeUsers", typeUser.deleteAll);
   };
   

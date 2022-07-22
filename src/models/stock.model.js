@@ -160,7 +160,7 @@ Stock.removeAll = (result) => {
 module.exports = Stock;
 function setStock(res) {
   res.forEach((obj, index) => {
-    const vehicule = {
+    const vehicle = {
       id: obj.id_vehicle,
       price: obj.vehicle_price,
       name: obj.vehicle_name,
@@ -169,7 +169,7 @@ function setStock(res) {
 
     const stockG = {
       id: obj.id,
-      vehicle: vehicule,
+      vehicle: vehicle,
       number_stock: obj.number_stock,
       updated_at: obj.updated_at,
     };

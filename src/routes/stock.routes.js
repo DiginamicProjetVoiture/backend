@@ -23,6 +23,6 @@ module.exports = (app) => {
     app.delete("/stocks/vehicle/:vehicleId", stock.deleteByVehicle);
 
     // Create a new product
-    app.delete("/stocks", stock.deleteAll);
+    // app.delete("/stocks", stock.deleteAll);
   };
   

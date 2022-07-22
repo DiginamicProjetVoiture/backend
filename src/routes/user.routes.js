@@ -20,6 +20,6 @@ module.exports = (app) => {
     app.delete("/users/:userId", user.delete);
   
     // Create a new product
-    app.delete("/users", user.deleteAll);
+    // app.delete("/users", user.deleteAll);
   };
   

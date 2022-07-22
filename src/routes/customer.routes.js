@@ -17,6 +17,6 @@ module.exports = (app) => {
     app.delete("/customers/:customerId", customer.delete);
   
     // Create a new product
-    app.delete("/customers", customer.deleteAll);
+    // app.delete("/customers", customer.deleteAll);
   };
   

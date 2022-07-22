@@ -17,6 +17,6 @@ module.exports = (app) => {
     app.delete("/quotations/:quotationId", quotation.delete);
   
     // Create a new product
-    app.delete("/quotations", quotation.deleteAll);
+    // app.delete("/quotations", quotation.deleteAll);
   };
   

@@ -17,6 +17,6 @@ module.exports = (app) => {
     app.delete("/priorities/:priorityId", priority.delete);
   
     // Create a new product
-    app.delete("/priorities", priority.deleteAll);
+    // app.delete("/priorities", priority.deleteAll);
   };
   
